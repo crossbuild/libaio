@@ -37,3 +37,27 @@ int sync_submit(struct iocb *iocb)
 }
 
 #define SETUP	aio_setup(1024)
+
+
+#define READ	'r'
+#define WRITE	'w'
+int attempt_rw(int fd, void *buf, int count, long long pos, int rw, int expect)
+{
+	struct iocb iocb;
+	int res;
+
+	switch(rw) {
+	case READ:	io_prep_pread (&iocb, fd, buf, count, pos); break;
+	case WRITE:	io_prep_pwrite(&iocb, fd, buf, count, pos); break;
+	}
+
+	printf("expect %3d: (%c), res = ", expect, rw);
+	fflush(stdout);
+	res = sync_submit(&iocb);
+	printf("%3d [%s]\n", res, (res <= 0) ? strerror(-res) : "Success");
+	if (res != expect)
+		return 1;
+
+	return 0;
+}
+
