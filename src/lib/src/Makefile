@@ -30,7 +30,7 @@ install:
 	install -D -m 755 $(soname) $(root)/lib/$(soname)$(dummyver)
 	ln -sf $(soname)$(extraver) $(root)/lib/kernel/stub/libredhat-kernel.so
 	mkdir -p $(root)/usr/lib
-	ln -sf /lib/libredhat-kernel.so $(root)/usr/lib/libredhat-kernel.so
+	ln -sf /lib/$(soname)$(dummyver) $(root)/usr/lib/libredhat-kernel.so
 
 clean:
 	rm -f *.o *.so myln $(soname)
