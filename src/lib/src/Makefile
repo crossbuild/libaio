@@ -1,3 +1,4 @@
+root=/
 all: libredhat-kernel.so
 
 ASFLAGS=-D__KERNEL__ -D__ASSEMBLY__ -I../include -nostdlib -nostartfiles
@@ -20,6 +21,10 @@ libredhat-kernel.so.1: $(so_objs) libredhat-kernel.map
 
 libredhat-kernel.so: libredhat-kernel.so.1
 	ln -sf $< $@
+
+install:
+	install -D -m 755 libredhat-kernel.so.1 $(root)/lib/kernel/stub/
+	ln -sf libredhat-kernel.so.1 $(root)/lib/kernel/stub/libaio.so
 
 clean:
 	rm -f *.o libredhat-kernel.so myln libredhat-kernel.so.1

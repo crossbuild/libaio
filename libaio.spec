@@ -35,18 +35,25 @@ make
 %install
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
-make install prefix=$RPM_BUILD_ROOT/usr
+make install prefix=$RPM_BUILD_ROOT/usr root=$RPM_BUILD_ROOT
 
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
-%post -p /sbin/ldconfig
+%post
+# if no libredhat-kernel.so is in place, temporarily use our stub
+# so that programs will link correctly
+if [ ! -f /lib/libredhat-kernel.so ] ; then
+	ln -sf /lib/kernel/stub/* /lib/
+fi
+/sbin/ldconfig
 
 %postun -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root)
 %attr(0755,root,root) /usr/lib/libaio.so.*
+%attr(0755,root,root) /lib/kernel/stub/*
 %doc COPYING TODO
 
 %files devel
@@ -56,5 +63,8 @@ make install prefix=$RPM_BUILD_ROOT/usr
 %attr(0644,root,root) /usr/lib/libaio.a
 
 %changelog
+* Mon Jan 21 2002 Michael K. Johnson <johnsonm@redhat.com>
+- Added stub library
+
 * Sun Jan 20 2002 Michael K. Johnson <johnsonm@redhat.com>
 - Initial packaging

@@ -39,6 +39,7 @@ $(soname): $(libaio_sobjs) lib/libredhat-kernel.so
 	$(CC) $(SO_CFLAGS) -Wl,--version-script=libaio.map -Wl,-soname=$(soname) -o $@ $^ $(LINK_FLAGS)
 
 install: $(all_targets)
+	@$(MAKE) -C lib/src install
 	install -D -m 644 libaio.h $(prefix)/include/libaio.h
 	install -D -m 644 libaio.a $(prefix)/lib/libaio.a
 	install -D -m 755 $(soname) $(prefix)/lib/$(soname)
