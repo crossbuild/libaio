@@ -1,5 +1,5 @@
 # foo.
-TEST_SRCS:=$(shell find cases/ -name \*.t | sort -n)
+TEST_SRCS:=$(shell find cases/ -name \*.t | sort -n -t/ -k2)
 PROGS:=$(patsubst %.t,%.p,$(TEST_SRCS))
 HARNESS_SRCS:=main.c
 # io_queue.c
@@ -33,5 +33,5 @@ testdir/rwfile: .PHONY
 	chmod 600 $@
 
 check: $(PROGS) testdir/rofile testdir/rwfile testdir/wofile
-	./runtests.sh `/bin/ls -d $(PROGS) | sort -n`
+	./runtests.sh $(PROGS)
 

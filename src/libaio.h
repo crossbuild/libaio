@@ -65,10 +65,8 @@ struct io_iocb_sockaddr {
 };	/* result code is the length of the sockaddr, or -'ve errno */
 
 struct io_iocb_common {
-	void		*buf;
-	unsigned	__pad1;
-	long		nbytes;
-	unsigned	__pad2;
+	PADDEDptr(void	*buf, __pad1);
+	PADDEDul(nbytes, __pad2);
 	long long	offset;
 	long long	__pad3, __pad4;
 };	/* result code is the amount read or -'ve errno */

@@ -43,7 +43,7 @@ int test_main(void)
 		if (res != 1) {
 			status |= 1;
 			printf("io_getevents failed [%d] with res=%d [%s]\n",
-				i, res, strerror(-res));
+				i, res, (res < 0) ? strerror(-res) : "okay");
 			break;
 		}
 
@@ -54,13 +54,13 @@ int test_main(void)
 		printf("event[%d]: write[%d] %s, returned: %ld [%s]\n",
 			i, (int)(iocb - &iocbs[0]),
 			(event.res != SIZE) ? "failed" : "okay",
-			(long)event.res, strerror(-event.res)
+			(long)event.res,
+			(event.res < 0) ? strerror(-event.res) : "okay"
 			);
 	}
 
 	res = ftruncate(rwfd, 0);			assert(res == 0);
 	res = close(rwfd);				assert(res == 0);
-	res = unlink("testdir/rwfile");			assert(res == 0);
 	return status;
 }
 

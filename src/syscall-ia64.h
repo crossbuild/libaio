@@ -11,6 +11,8 @@
 		"	mov r15=" SYMSTR( __NR_ ## name ) "\n"		\
 		"	break 0x100000\n"				\
 		"	;;\n"						\
+		"	cmp.eq p6,p0=-1,r10\n"				\
+		"	;;\n"						\
 		"	(p6) sub r8=0,r8\n"				\
 		"	br.ret.sptk.few b0\n"				\
 		".size " SYMSTR(name) ", . - " SYMSTR(name) "\n"	\
