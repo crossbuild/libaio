@@ -1,5 +1,5 @@
 Name: libaio
-Version: 0.3.94
+Version: 0.3.95
 Release: 1
 Summary: Linux-native asynchronous I/O access library
 Copyright: LGPL
@@ -7,7 +7,7 @@ Group:  System Environment/Libraries
 Source: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root
 # Fix ExclusiveArch as we implement this functionality on more architectures
-ExclusiveArch: i386 x86_64 ia64 s390 s390x ppc
+ExclusiveArch: i386 x86_64 ia64 s390 s390x ppc ppc64
 
 %description
 The Linux-native asynchronous I/O facility ("async I/O", or "aio") has a
@@ -56,6 +56,9 @@ make install prefix=$RPM_BUILD_ROOT/usr root=$RPM_BUILD_ROOT
 %attr(0644,root,root) /usr/lib/libaio.a
 
 %changelog
+* Wed May 28 2003 Michael K. Johnson <johnsonm@redhat.com> 0.3.95-1
+- ppc bugfix from Julie DeWandel
+
 * Tue May 20 2003 Michael K. Johnson <johnsonm@redhat.com> 0.3.94-1
 - symbol versioning fix from Ulrich Drepper
 
