@@ -1,6 +1,6 @@
 prefix=usr
 
-CFLAGS=-nostdlib -nostartfiles -Wall -I. -g
+CFLAGS=-nostdlib -nostartfiles -Wall -I. -g -fomit-frame-pointer -O2
 SO_CFLAGS=-shared $(CFLAGS)
 L_CFLAGS=$(CFLAGS)
 LINK_FLAGS=-Llib -lredhat-kernel
@@ -21,6 +21,7 @@ libaio_srcs += io_queue_run.c
 libaio_objs := $(patsubst %.c,%.ol,$(libaio_srcs))
 libaio_sobjs := $(patsubst %.c,%.os,$(libaio_srcs))
 
+$(libaio_objs) $(libaio_sobjs): libaio.h vsys_def.h
 
 %.os: %.c
 	$(CC) $(SO_CFLAGS) -c -o $@ $<
