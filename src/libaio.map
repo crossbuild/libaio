@@ -1,5 +1,7 @@
 LIBAIO_0.4 {
 	global:
+		io_setup;
+		io_destroy;
 		io_cancel;
 		io_getevents;
 	local:

@@ -20,7 +20,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <errno.h>
-#include "vsys_def.h"
 
 int io_queue_release(io_context_t ctx)
 {

@@ -18,6 +18,10 @@ libaio_srcs += io_queue_wait.c io_queue_run.c
 
 # real syscalls
 libaio_srcs += io_getevents.c io_submit.c io_cancel.c
+libaio_srcs += io_setup.c io_destroy.c
+
+# internal functions
+libaio_srcs += raw_syscall.c
 
 # old symbols
 libaio_srcs += compat-0_1.c

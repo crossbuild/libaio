@@ -1,4 +1,4 @@
-/* io_submit
+/* io_destroy
    libaio Linux async I/O interface
    Copyright 2002 Red Hat, Inc.
 
@@ -16,24 +16,11 @@
    License along with this library; if not, write to the Free Software
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
  */
-#include <libaio.h>
 #include <errno.h>
-#include <stdlib.h>
-#include <time.h>
+#include <libaio.h>
+#include "syscall.h"
 
-int io_queue_run(io_context_t ctx)
+int io_destroy(io_context_t ctx)
 {
-	static struct timespec timeout = { 0, 0 };
-	struct io_event event;
-	int ret;
-
-	/* FIXME: batch requests? */
-	while (1 == (ret = io_getevents(ctx, 0, 1, &event, &timeout))) {
-		io_callback_t cb = (io_callback_t)event.data;
-		struct iocb *iocb = (struct iocb *)event.obj;
-
-		cb(ctx, iocb, event.res, event.res2);
-	}
-
-	return ret;
+	return syscall1(__NR_io_destroy, ctx);
 }
