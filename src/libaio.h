@@ -55,6 +55,14 @@ typedef enum io_iocb_cmd {
 #define PADDED(x, y)	x; unsigned y
 #define PADDEDptr(x, y)	x; unsigned y
 #define PADDEDul(x, y)	unsigned long x; unsigned y
+#elif defined(__s390x__) /* big endian, 64 bits */
+#define PADDED(x, y)	unsigned y; x
+#define PADDEDptr(x,y)	x
+#define PADDEDul(x, y)	unsigned long x
+#elif defined(__s390__) /* big endian, 32 bits */
+#define PADDED(x, y)	unsigned y; x
+#define PADDEDptr(x, y) unsigned y; x
+#define PADDEDul(x, y)	unsigned y; unsigned long x
 #else
 #error	endian?
 #endif

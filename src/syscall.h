@@ -12,6 +12,8 @@
 #include "syscall-ia64.h"
 #elif defined(__PPC__)
 #include "syscall-ppc.h"
+#elif defined(__s390__)
+#include "syscall-s390.h"
 #else
 #error "add syscall-arch.h"
 #endif
