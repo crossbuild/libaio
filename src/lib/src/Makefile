@@ -5,14 +5,14 @@ CFLAGS=-D__KERNEL__ -I../include -nostdlib -nostartfiles
 
 so_objs=vsysaddr.o kso_init.o
 
-vsysaddr.S: ../System.map stub.S Makefile
+# We can't autogenerate or we'll depend on running a kernel with this
+# already installed
+make_stub_vsysaddr.S:
 	rm -f vsysaddr.S
 	echo '#include "stub.S"' >vsysaddr.S
-	awk -- "/^bfff.* vsys_/ { print \"dynamic_syscall(\"\$$3 \",0x\" \$$1 \")\"; }" <../System.map >>vsysaddr.S
+	awk -- "/^bfff.* vsys_/ { print \"dynamic_syscall(\"\$$3 \",0x\" \$$1 \")\"; }" <System.map >>vsysaddr.S
 
 vsysaddr.o: vsysaddr.S
-
-kso_init.o: ../include/linux/compile.h
 
 libredhat-kernel.so.1: $(so_objs) libredhat-kernel.map
 	gcc -nostdlib -nostartfiles -shared -Wl,--version-script=libredhat-kernel.map -o $@  $(so_objs)
@@ -23,7 +23,7 @@ libredhat-kernel.so: libredhat-kernel.so.1
 	ln -sf $< $@
 
 clean:
-	rm -f *.o libredhat-kernel.so myln libredhat-kernel.so.1 vsysaddr.S
+	rm -f *.o libredhat-kernel.so myln libredhat-kernel.so.1
 
 # test app
 myln: myln.c libredhat-kernel.so Makefile

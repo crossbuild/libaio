@@ -6,14 +6,14 @@ L_CFLAGS=$(CFLAGS)
 LINK_FLAGS=-Llib -lredhat-kernel
 
 soname=libaio.so.1
-all_targets += libaio.a $(soname) lib/libredhat-kernel.so
+all_targets += libaio.a $(soname)
 
 all: $(all_targets)
 
 lib/libredhat-kernel.so:
 	@$(MAKE) -C lib/src
 	@cp lib/src/libredhat-kernel.so.1 lib
-	@ln -sf lib/libredhat-kernel.so.1 libredhat-kernel.so
+	@cd lib; ln -sf libredhat-kernel.so.1 libredhat-kernel.so
 
 libaio_srcs := io_queue_init.c io_submit.c io_cancel.c io_queue_wait.c
 libaio_srcs += io_queue_run.c
@@ -34,7 +34,7 @@ libaio.a: $(libaio_objs)
 	ar r libaio.a $^
 	ranlib libaio.a
 
-$(soname): $(libaio_sobjs)
+$(soname): $(libaio_sobjs) lib/libredhat-kernel.so
 	$(CC) $(SO_CFLAGS) -Wl,--version-script=libaio.map -Wl,-soname=$(soname) -o $@ $^ $(LINK_FLAGS)
 
 install: $(all_targets)
