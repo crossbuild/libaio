@@ -1,5 +1,5 @@
 Name: libaio
-Version: 0.3.90
+Version: 0.3.91
 Release: 1
 Summary: Linux-native asynchronous I/O access library
 Copyright: LGPL
@@ -7,7 +7,7 @@ Group:  System Environment/Libraries
 Source: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root
 # Fix ExclusiveArch as we implement this functionality on more architectures
-ExclusiveArch: i386
+ExclusiveArch: i386 ia64
 Requires: initscripts >= 6.47-1
 
 %description

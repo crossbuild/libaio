@@ -1,6 +1,6 @@
 prefix=/usr
 
-CFLAGS=-nostdlib -nostartfiles -Wall -I. -g -fomit-frame-pointer -O2
+CFLAGS=-fPIC -nostdlib -nostartfiles -Wall -I. -g -fomit-frame-pointer -O2
 SO_CFLAGS=-shared $(CFLAGS)
 L_CFLAGS=$(CFLAGS)
 LINK_FLAGS=

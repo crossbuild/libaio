@@ -104,6 +104,7 @@ struct io_event {
 
 #undef PADDED
 #undef PADDEDptr
+#undef PADDEDul
 
 typedef void (*io_callback_t)(io_context_t ctx, struct iocb *iocb, long res, long res2);
 
