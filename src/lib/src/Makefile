@@ -2,21 +2,12 @@ root=/
 all: libredhat-kernel.so
 
 ASFLAGS=-D__KERNEL__ -D__ASSEMBLY__ -I../include -nostdlib -nostartfiles
-CFLAGS=-D__KERNEL__ -I../include -nostdlib -nostartfiles
+CFLAGS=-Wall -D__KERNEL__ -I../include -nostdlib -nostartfiles -O2 -fomit-frame-pointer
 soname=libredhat-kernel.so.1
 dummyver=.0.0
 extraver=.0.1
 
-so_objs=vsysaddr.o kso_init.o
-
-# We can't autogenerate or we'll depend on running a kernel with this
-# already installed
-make_stub_vsysaddr.S:
-	rm -f vsysaddr.S
-	echo '#include "stub.S"' >vsysaddr.S
-	awk -- "/^bfff.* vsys_/ { print \"dynamic_syscall(\"\$$3 \",0x\" \$$1 \")\"; }" <System.map >>vsysaddr.S
-
-vsysaddr.o: vsysaddr.S
+so_objs=aio_syscalls.o
 
 $(soname): $(so_objs) libredhat-kernel.map
 	gcc -nostdlib -nostartfiles -shared -Wl,--version-script=libredhat-kernel.map -Wl,-soname=$(soname) -o $@  $(so_objs)
