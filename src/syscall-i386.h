@@ -4,33 +4,54 @@
 #define __NR_io_submit		248
 #define __NR_io_cancel		249
 
-#define syscall1(nr, a) ({					\
-	long __ret;						\
-	__asm__ __volatile__("int $0x80" : "=a" (__ret) :	\
-		"0" (nr), "b" (a));				\
-	__ret; })
+#define io_syscall1(type, name, type1, arg1)				\
+	type name(type1 arg1)						\
+	{								\
+		long __ret;						\
+		__asm__ __volatile__("int $0x80" : "=a" (__ret) :	\
+			"0" (__NR_##name), "b" (arg1));			\
+		return __ret;						\
+	}
 
-#define syscall2(nr, a, b) ({					\
-	long __ret;						\
-	__asm__ __volatile__("int $0x80" : "=a" (__ret) :	\
-		"0" (nr), "b" (a), "c" (b));			\
-	__ret; })
+#define io_syscall2(type, name, type1, arg1, type2, arg2)		\
+	type name(type1 arg1, type2 arg2)				\
+	{								\
+		long __ret;						\
+		__asm__ __volatile__("int $0x80" : "=a" (__ret) :	\
+			"0" (__NR_##name), "b" (arg1), "c" (arg2));	\
+		return __ret;						\
+	}
 
-#define syscall3(nr, a, b, c) ({				\
-	long __ret;						\
-	__asm__ __volatile__("int $0x80" : "=a" (__ret) :	\
-		"0" (nr), "b" (a), "c" (b), "d" (c));		\
-	__ret; })
+#define io_syscall3(type, name, type1, arg1, type2, arg2, type3, arg3)	\
+	type name(type1 arg1, type2 arg2, type3 arg3)			\
+	{								\
+		long __ret;						\
+		__asm__ __volatile__("int $0x80" : "=a" (__ret) :	\
+			"0" (__NR_##name), "b" (arg1), "c" (arg2),	\
+			"d" (arg3)					\
+			);						\
+		return __ret;						\
+	}
 
-#define syscall4(nr, a, b, c, d) ({				\
-	long __ret;						\
-	__asm__ __volatile__("int $0x80" : "=a" (__ret) :	\
-		"0" (nr), "b" (a), "c" (b), "d" (c), "S" (d));	\
-	__ret; })
+#define io_syscall4(type, name, type1, arg1, type2, arg2, type3, arg3, type4, arg4)	\
+	type name(type1 arg1, type2 arg2, type3 arg3, type4 arg4)	\
+	{								\
+		long __ret;						\
+		__asm__ __volatile__("int $0x80" : "=a" (__ret) :	\
+			"0" (__NR_##name), "b" (arg1), "c" (arg2),	\
+			"d" (arg3), "S" (arg4)				\
+			);						\
+		return __ret;						\
+	}
 
-#define syscall5(nr, a, b, c, d, e) ({				\
-	long __ret;						\
-	__asm__ __volatile__("int $0x80" : "=a" (__ret) :	\
-		"0" (nr), "b" (a), "c" (b), "d" (c), "S" (d), "D" (e));	\
-	__ret; })
+#define io_syscall5(type, name, type1, arg1, type2, arg2, type3, arg3, type4, arg4, type5, arg5)	\
+	type name(type1 arg1, type2 arg2, type3 arg3, type4 arg4, type5 arg5)	\
+	{								\
+		long __ret;						\
+		__asm__ __volatile__("int $0x80" : "=a" (__ret) :	\
+			"0" (__NR_##name), "b" (arg1), "c" (arg2),	\
+			"d" (arg3), "S" (arg4), "D" (arg5)		\
+			);						\
+		return __ret;						\
+	}
 
