@@ -49,6 +49,6 @@ $(libaio_objs): libaio.h
 
 clean:
 	rm -f $(all_targets) $(libaio_objs) $(libaio_sobjs) $(soname).new
-	rm -f *.so *.a *.o
+	rm -f *.so* *.a *.o
 	rm -f lib/*.so*
 	@$(MAKE) -C lib/src clean
