@@ -1,0 +1,11 @@
+REDHAT_0.90 {
+	global:
+		vsys_io_setup;
+		vsys_io_destroy;
+		vsys_io_submit;
+		vsys_io_cancel;
+		vsys_io_wait;
+		vsys_io_getevents;
+	local:
+		*;
+};
