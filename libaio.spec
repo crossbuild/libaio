@@ -1,6 +1,6 @@
 Name: libaio
 Version: 0.3.98
-Release: 1
+Release: 2
 Summary: Linux-native asynchronous I/O access library
 Copyright: LGPL
 Group:  System Environment/Libraries
@@ -58,7 +58,10 @@ make install prefix=$RPM_BUILD_ROOT/usr \
 %attr(0644,root,root) %{_libdir}/libaio.a
 
 %changelog
-* Thu Feb 26 2004 Jeff Moyer <jmoyer@redhat.com> 0.3.38-1
+* Thu Feb 26 2004 Jeff Moyer <jmoyer@redhat.com> 0.3.98-2
+- bah.  fix version nr in changelog.
+
+* Thu Feb 26 2004 Jeff Moyer <jmoyer@redhat.com> 0.3.98-1
 - fix compiler warnings.
 
 * Thu Feb 26 2004 Jeff Moyer <jmoyer@redhat.com> 0.3.97-2
