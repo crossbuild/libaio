@@ -31,9 +31,9 @@ make install prefix=$RPM_BUILD_ROOT/usr
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
-%post -c /sbin/ldconfig
+%post -p /sbin/ldconfig
 
-%postun -c /sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root)
