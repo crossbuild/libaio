@@ -1,3 +1,6 @@
+0.3.9
+	- add io_queue_release function
+
 0.3.8
 	- make clean deletes libredhat-kernel.so.1
 	- const struct timespec *

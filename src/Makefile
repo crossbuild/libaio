@@ -16,7 +16,7 @@ libredhat-kernel.so:
 	@ln -sf libredhat-kernel.so.1 libredhat-kernel.so
 
 libaio_srcs := io_queue_init.c io_submit.c io_cancel.c io_queue_wait.c
-libaio_srcs += io_queue_run.c io_getevents.c
+libaio_srcs += io_queue_run.c io_getevents.c io_queue_release.c
 
 libaio_objs := $(patsubst %.c,%.ol,$(libaio_srcs))
 libaio_sobjs := $(patsubst %.c,%.os,$(libaio_srcs))
