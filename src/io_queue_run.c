@@ -30,7 +30,7 @@ int io_queue_run(io_context_t ctx)
 	/* FIXME: batch requests? */
 	while (1 == (ret = io_getevents(ctx, 0, 1, &event, &timeout))) {
 		io_callback_t cb = (io_callback_t)event.data;
-		struct iocb *iocb = (struct iocb *)event.obj;
+		struct iocb *iocb = event.obj;
 
 		cb(ctx, iocb, event.res, event.res2);
 	}

@@ -94,8 +94,8 @@ struct iocb {
 };
 
 struct io_event {
-	PADDEDul(data, __pad1);
-	PADDEDul(obj,  __pad2);
+	PADDEDptr(void *data, __pad1);
+	PADDEDptr(struct iocb *obj,  __pad2);
 	PADDEDul(res,  __pad3);
 	PADDEDul(res2, __pad4);
 };
