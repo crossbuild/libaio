@@ -39,7 +39,7 @@ int test_main(void)
 		struct io_event event;
 		struct iocb *iocb;
 
-		res = io_getevents(io_ctx, 1, &event, &ts);
+		res = io_getevents(io_ctx, 0, 1, &event, &ts);
 		if (res != 1) {
 			status |= 1;
 			printf("io_getevents failed [%d] with res=%d [%s]\n",

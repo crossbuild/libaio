@@ -43,7 +43,7 @@ int sync_submit(struct iocb *iocb)
 		return res;
 	}
 
-	res = io_getevents(io_ctx, 1, &event, &ts);
+	res = io_getevents(io_ctx, 0, 1, &event, &ts);
 	if (res != 1) {
 		printf("sync_submit: io_getevents res=%d [%s]\n", res, strerror(-res));
 		return res;

@@ -4,8 +4,6 @@
         - with maxevents <= 0
         - with an already initialized ctxp
 */
-#define io_setup	vsys_io_setup
-extern int io_setup(unsigned nr_reqs, io_context_t *ctxp);
 
 int attempt(int n, io_context_t *ctxp, int expect)
 {

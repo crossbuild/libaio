@@ -4,7 +4,7 @@ PROGS:=$(patsubst %.t,%.p,$(TEST_SRCS))
 HARNESS_SRCS:=main.c
 # io_queue.c
 
-CFLAGS=-Wall -Werror -g -O -laio -lredhat-kernel
+CFLAGS=-Wall -Werror -g -O -laio
 #-lpthread -lrt
 
 all: $(PROGS)

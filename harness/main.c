@@ -13,7 +13,7 @@
 #if defined(__i386__)
 #define KERNEL_RW_POINTER	((void *)0xc0010000)
 #else
-#warning Not really sure where kernel memory is.  Guessing.
+//#warning Not really sure where kernel memory is.  Guessing.
 #define KERNEL_RW_POINTER	((void *)0xffffffffc0010000)
 #endif
 
