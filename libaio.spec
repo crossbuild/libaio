@@ -61,8 +61,12 @@ fi
 %attr(0644,root,root) /usr/include/*
 %attr(0755,root,root) /usr/lib/libaio.so
 %attr(0644,root,root) /usr/lib/libaio.a
+%attr(0755,root,root) /usr/lib/libredhat-kernel.so
 
 %changelog
+* Tue Jan 22 2002 Michael K. Johnson <johnsonm@redhat.com>
+- Make linker happy with /usr/lib symlink for libredhat-kernel.so
+
 * Mon Jan 21 2002 Michael K. Johnson <johnsonm@redhat.com>
 - Added stub library
 

@@ -26,6 +26,7 @@ libredhat-kernel.so: $(soname)
 install:
 	install -D -m 755 $(soname) $(root)/lib/kernel/stub/$(soname)
 	ln -sf $(soname) $(root)/lib/kernel/stub/libredhat-kernel.so
+	ln -sf /lib/libredhat-kernel.so $(root)/usr/lib/libredhat-kernel.so
 
 clean:
 	rm -f *.o *.so myln $(soname)
