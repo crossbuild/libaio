@@ -1,5 +1,5 @@
 Name: libaio
-Version: 0.3.102
+Version: 0.3.103
 Release: 1
 Summary: Linux-native asynchronous I/O access library
 Copyright: LGPL
@@ -59,6 +59,10 @@ make install prefix=$RPM_BUILD_ROOT/usr \
 %attr(0644,root,root) %{_libdir}/libaio.a
 
 %changelog
+* Tue Jan 25 2005 Jeff Moyer <jmoyer@redhat.com> - 0.3.103-1
+- Fix SONAME breakage.  In changing file names around, I also changed the 
+  SONAME, which is a no no.
+
 * Thu Oct 14 2004 Jeff Moyer <jmoyer@redhat.com> - 0.3.102-1
 - S390 asm had a bug; I forgot to update the clobber list.  Lucky for me,
   newer compilers complain about such things.
