@@ -8,7 +8,7 @@ SO_CFLAGS=-shared $(CFLAGS)
 L_CFLAGS=$(CFLAGS)
 LINK_FLAGS=
 
-soname=libaio.so.1
+soname=libaio.so.1.0.0
 all_targets += libaio.a $(soname)
 
 all: $(all_targets)
@@ -51,6 +51,7 @@ install: $(all_targets)
 	install -D -m 644 libaio.h $(includedir)/libaio.h
 	install -D -m 644 libaio.a $(libdir)/libaio.a
 	install -D -m 755 $(soname) $(libdir)/$(soname)
+	ln -sf $(soname) $(libdir)/libaio.so.1
 	ln -sf $(soname) $(libdir)/libaio.so
 
 $(libaio_objs): libaio.h
