@@ -17,9 +17,9 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
  */
 #include <libaio.h>
-#include "vsys_def.h"
+#include "syscall.h"
 
-int io_cancel(io_context_t ctx, struct iocb *iocb)
+int io_cancel(io_context_t ctx, struct iocb *iocb, struct io_event *event)
 {
-	return vsys_io_cancel(ctx, iocb);
+	return syscall3(__NR_io_cancel, ctx, iocb, event);
 }

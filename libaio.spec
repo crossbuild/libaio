@@ -1,5 +1,5 @@
 Name: libaio
-Version: 0.3.15
+Version: 0.3.90
 Release: 1
 Summary: Linux-native asynchronous I/O access library
 Copyright: LGPL
@@ -63,6 +63,9 @@ make install prefix=$RPM_BUILD_ROOT/usr root=$RPM_BUILD_ROOT
 %attr(0755,root,root) /usr/lib/libredhat-kernel.so
 
 %changelog
+* Thu Sep  5 2002 Benjamin LaHaise <bcrl@redhat.com>
+- libaio 0.3.90 test release
+
 * Mon Apr 29 2002 Benjamin LaHaise <bcrl@redhat.com>
 - add requires initscripts >= 6.47-1 to get boot time libredhat-kernel 
   linkage correct.

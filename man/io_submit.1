@@ -1,0 +1,68 @@
+#/* sys_io_submit:
+# *      Queue the nr iocbs pointed to by iocbpp for processing.  Returns
+# *      the number of iocbs queued.  May return -EINVAL if the aio_context
+# *      specified by ctx_id is invalid, if nr is < 0, if the iocb at
+# *      *iocbpp[0] is not properly initialized, if the operation specified
+# *      is invalid for the file descriptor in the iocb.  May fail with
+# *      -EFAULT if any of the data structures point to invalid data.  May
+# *      fail with -EBADF if the file descriptor specified in the first
+# *      iocb is invalid.  May fail with -EAGAIN if insufficient resources
+# *      are available to queue any iocbs.  Will return 0 if nr is 0.  Will
+# *      fail with -ENOSYS if not implemented.
+# */
+.TH io_submit 2 2002-09-02 "Linux 2.4" "Linux AIO"
+.SH NAME
+io_submit \- submit io requests
+.SH SYNOPSIS
+.B #include <errno.h>
+.br
+.B #include <libaio.h>
+.LP
+.BI "int io_submit(io_context_t " ctx ", long " nr ", struct iocb *" iocbs "[]);"
+.nf
+struct iocb {
+	void		*data;
+	unsigned	key;
+	short		aio_lio_opcode;
+	short		aio_reqprio;
+	int		aio_fildes;
+};
+.fi
+.SH DESCRIPTION
+.B io_submit
+submits
+.I nr
+iocbs for processing.
+.SH "RETURN VALUES"
+On success,
+.B io_submit
+returns the number of iocbs submitted successfully.  Otherwise, -error is return, where 
+error is one of the Exxx values defined in the Errors section.
+.SH ERRORS
+.TP
+.B EFAULT
+.I iocbs
+referenced data outside of the program's accessible address space.
+.TP
+.B EINVAL
+.I ctx
+refers to an unitialized aio context, the iocb pointed to by 
+.I iocbs
+contains an improperly initialized iocb, 
+.TP
+.B EBADF
+The iocb contains a file descriptor that does not exist.
+.TP
+.B EINVAL
+The file specified in the iocb does not support the given io operation.
+.SH "SEE ALSO"
+.BR io_setup(2),
+.BR io_destroy(2),
+.BR io_getevents(2),
+.BR io_wait(2),
+.BR io_prep_pread(2),
+.BR io_prep_pwrite(2),
+.BR io_prep_fsync(2),
+.BR io_prep_fdsync(2),
+.BR io_cancel(2),
+.BR errno(3)

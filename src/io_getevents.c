@@ -20,9 +20,9 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <time.h>
-#include "vsys_def.h"
+#include "syscall.h"
 
-int io_getevents(io_context_t ctx, long nr, struct io_event *events, const struct timespec *timeout)
+int io_getevents(io_context_t ctx, long min_nr, long nr, struct io_event *events, struct timespec *timeout)
 {
-	return vsys_io_getevents(ctx, nr, events, timeout);
+	return syscall5(__NR_io_getevents, ctx, min_nr, nr, events, timeout);
 }

@@ -24,5 +24,5 @@
 
 int io_queue_release(io_context_t ctx)
 {
-	return vsys_io_destroy(ctx);
+	return io_destroy(ctx);
 }

@@ -1,3 +1,9 @@
+0.4.0
+	- remove libredhat-kernel
+	- add rough outline for man pages
+	- make the compiled io_getevents() add the extra parameter and 
+	  pass the timeout for updating as per 2.5
+
 0.3.15
 	- use real syscall interface, but don't break source compatibility 
 	  yet (that will happen with 0.4.0)

@@ -28,7 +28,7 @@ int io_queue_run(io_context_t ctx)
 	struct io_event event;
 	int ret;
 
-	/* FIXME: batch requests */
+	/* FIXME: batch requests? */
 	while (1 == (ret = vsys_io_getevents(ctx, 1, &event, &timeout))) {
 		io_callback_t cb = (io_callback_t)event.data;
 		struct iocb *iocb = (struct iocb *)event.obj;

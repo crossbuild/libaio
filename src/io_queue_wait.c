@@ -25,7 +25,7 @@
 
 struct timespec;
 
-int io_queue_wait(io_context_t ctx, const struct timespec *timeout)
+int io_queue_wait(io_context_t ctx, struct timespec *timeout)
 {
 	return vsys_io_getevents(ctx, 0, NULL, timeout);
 }

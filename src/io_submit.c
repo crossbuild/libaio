@@ -18,11 +18,9 @@
  */
 #include <errno.h>
 #include <libaio.h>
-#include "vsys_def.h"
+#include "syscall.h"
 
 int io_submit(io_context_t ctx, long nr, struct iocb **iocbs)
 {
-	if (nr >= 0)
-		return vsys_io_submit(ctx, nr, iocbs);
-	return -EINVAL;
+	return syscall3(__NR_io_submit, ctx, nr, iocbs);
 }
