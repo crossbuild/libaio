@@ -1,6 +1,6 @@
 Name: libaio
 Version: 0.3.99
-Release: 2
+Release: 4
 Summary: Linux-native asynchronous I/O access library
 Copyright: LGPL
 Group:  System Environment/Libraries
@@ -21,6 +21,7 @@ require the Linux-native async I/O API.
 Summary: Development files for Linux-native asynchronous I/O access
 Group: Development/System
 Requires: libaio
+Provides: libaio.so.1
 
 %description devel
 This package provides header files to include and libraries to link with
@@ -58,6 +59,13 @@ make install prefix=$RPM_BUILD_ROOT/usr \
 %attr(0644,root,root) %{_libdir}/libaio.a
 
 %changelog
+* Wed Jul 14 2004 Jeff Moyer <jmoyer@redhat.com> - 0.3.99-4
+- Ok, there was a race in moving the cvs module.  Someone rebuild from
+  the old cvs into fc3.  *sigh*  bumping rev.
+
+* Wed Jul 14 2004 Jeff Moyer <jmoyer@redhat.com> - 0.3.99-3
+- Actually provide libaio.so.1.
+
 * Tue Mar 30 2004 Jeff Moyer <jmoyer@redhat.com> - 0.3.99-2
 - Apparently the 0.3.93 patch was not meant for 0.3.96.  Backed it out.
 
