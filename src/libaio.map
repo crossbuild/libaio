@@ -5,6 +5,7 @@ LIBAIO_0.1 {
 		io_queue_wait;
 		io_cancel;
 		io_submit;
+		io_getevents;
 	local:
 		*;
 };

@@ -106,8 +106,11 @@ extern int io_queue_grow(io_context_t ctx, int new_maxevents);
 extern int io_queue_release(io_context_t ctx);
 extern int io_queue_wait(io_context_t ctx, struct timespec *timeout);
 extern int io_queue_run(io_context_t ctx);
-extern int io_submit(io_context_t ctx, int nr, struct iocb *ios[]);
+extern int io_submit(io_context_t ctx, long nr, struct iocb *ios[]);
 extern int io_cancel(io_context_t ctx, struct iocb *iocb);
+
+extern int io_getevents(io_context_t ctx_id, long nr, struct io_event *events, struct timespec *timeout);
+
 
 static inline void io_set_callback(struct iocb *iocb, io_callback_t cb)
 {

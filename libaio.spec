@@ -64,6 +64,9 @@ fi
 %attr(0755,root,root) /usr/lib/libredhat-kernel.so
 
 %changelog
+* Tue Jan 22 2002 Benjamin LaHaise <bcrl@redhat.com>
+- add io_getevents
+
 * Tue Jan 22 2002 Michael K. Johnson <johnsonm@redhat.com>
 - Make linker happy with /usr/lib symlink for libredhat-kernel.so
 
