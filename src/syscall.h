@@ -1,4 +1,5 @@
 #include <sys/syscall.h>
+#include <unistd.h>
 
 #define _SYMSTR(str)	#str
 #define SYMSTR(str)	_SYMSTR(str)
