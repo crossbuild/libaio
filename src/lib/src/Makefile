@@ -20,10 +20,10 @@ libredhat-kernel.so.1: $(so_objs) libredhat-kernel.map
 	strip $@
 
 libredhat-kernel.so: libredhat-kernel.so.1
-	ln -sf $< $@
+	cp -f $< $@
 
 install:
-	install -D -m 755 libredhat-kernel.so.1 $(root)/lib/kernel/stub/
+	install -D -m 755 libredhat-kernel.so.1 $(root)/lib/kernel/stub/libredhat-kernel.so.1
 	ln -sf libredhat-kernel.so.1 $(root)/lib/kernel/stub/libaio.so
 
 clean:

@@ -3,17 +3,17 @@ prefix=usr
 CFLAGS=-nostdlib -nostartfiles -Wall -I. -g -fomit-frame-pointer -O2
 SO_CFLAGS=-shared $(CFLAGS)
 L_CFLAGS=$(CFLAGS)
-LINK_FLAGS=-Llib -lredhat-kernel
+LINK_FLAGS=-L. -lredhat-kernel
 
 soname=libaio.so.1
 all_targets += libaio.a $(soname)
 
 all: $(all_targets)
 
-lib/libredhat-kernel.so:
+libredhat-kernel.so:
 	@$(MAKE) -C lib/src
-	@cp lib/src/libredhat-kernel.so.1 lib
-	@cd lib; ln -sf libredhat-kernel.so.1 libredhat-kernel.so
+	@cp lib/src/libredhat-kernel.so.1 ./
+	@ln -sf libredhat-kernel.so.1 libredhat-kernel.so
 
 libaio_srcs := io_queue_init.c io_submit.c io_cancel.c io_queue_wait.c
 libaio_srcs += io_queue_run.c
@@ -35,7 +35,7 @@ libaio.a: $(libaio_objs)
 	ar r libaio.a $^
 	ranlib libaio.a
 
-$(soname): $(libaio_sobjs) lib/libredhat-kernel.so
+$(soname): $(libaio_sobjs) libredhat-kernel.so
 	$(CC) $(SO_CFLAGS) -Wl,--version-script=libaio.map -Wl,-soname=$(soname) -o $@ $^ $(LINK_FLAGS)
 
 install: $(all_targets)
