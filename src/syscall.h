@@ -1,5 +1,7 @@
 #if defined(__i386__)
 #include "syscall-i386.h"
+#elif defined(__itanium__)
+#include "syscall-ia64.h"
 #else
 #error "add syscall-arch.h"
 #endif
