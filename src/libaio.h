@@ -44,14 +44,19 @@ typedef enum io_iocb_cmd {
 } io_iocb_cmd_t;
 
 #if defined(__i386__) /* little endian, 32 bits */
-#define PADDED(x, y)	x, y
+#define PADDED(x, y)	x; unsigned y
 #define PADDEDptr(x, y)	x; unsigned y
+#define PADDEDul(x, y)	unsigned long x; unsigned y
+#elif defined(__ia64__)
+#define PADDED(x, y)	x, y
+#define PADDEDptr(x, y)	x
+#define PADDEDul(x, y)	unsigned long x
 #else
 #error	endian?
 #endif
 
 struct io_iocb_poll {
-	int	PADDED(events, __pad1);
+	PADDED(int events, __pad1);
 };	/* result code is the set of result flags or -'ve errno */
 
 struct io_iocb_sockaddr {
@@ -75,8 +80,8 @@ struct io_iocb_vector {
 };	/* result code is the amount read or -'ve errno */
 
 struct iocb {
-	void		PADDEDptr(*data, __pad1);	/* Return in the io completion event */
-	unsigned	PADDED(key, __pad2);	/* For use in identifying io requests */
+	PADDEDptr(void *data, __pad1);	/* Return in the io completion event */
+	PADDED(unsigned key, __pad2);	/* For use in identifying io requests */
 
 	short		aio_lio_opcode;	
 	short		aio_reqprio;
@@ -91,10 +96,10 @@ struct iocb {
 };
 
 struct io_event {
-	unsigned	PADDED(data, __pad1);
-	unsigned	PADDED(obj,  __pad2);
-	unsigned	PADDED(res,  __pad3);
-	unsigned	PADDED(res2, __pad4);
+	PADDEDul(data, __pad1);
+	PADDEDul(obj,  __pad2);
+	PADDEDul(res,  __pad3);
+	PADDEDul(res2, __pad4);
 };
 
 #undef PADDED
