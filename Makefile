@@ -32,5 +32,5 @@ create-archive: tag-archive
 
 archive: clean tag-archive create-archive
 
-srpm:
+srpm: create-archive
 	$(RPM) --define "_sourcedir `pwd`" --define "_srcrpmdir `pwd`" --nodeps -bs $(SPECFILE)
