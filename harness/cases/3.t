@@ -11,7 +11,8 @@ int attempt(io_context_t ctx, long nr, struct iocb *ios[], int expect)
 	printf("expect %3d: io_submit(%10p, %3ld, %10p) = ", expect, ctx, nr, ios);
 	fflush(stdout);
 	res = io_submit(ctx, nr, ios);
-	printf("%3d [%s]\n", res, (res <= 0) ? strerror(-res) : "");
+	printf("%3d [%s]%s\n", res, (res <= 0) ? strerror(-res) : "",
+		(res != expect) ? " -- FAILED" : "");
 	if (res != expect)
 		return 1;
 

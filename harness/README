@@ -15,3 +15,5 @@ to directories) are as follows:
 	testdir.enospc/
 		- a filesystem that has space for writing 8KB out, but 
 		  fails with -ENOSPC beyond 8KB.
+	testdir.ext2/
+		- must be an ext2 filesystem.

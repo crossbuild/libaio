@@ -22,7 +22,8 @@ int attempt(int fd, void *buf, int count, long long pos, int rw, int expect)
 	printf("expect %3d: (%c), res = ", expect, rw);
 	fflush(stdout);
 	res = sync_submit(&iocb);
-	printf("%3d [%s]\n", res, (res <= 0) ? strerror(-res) : "Success");
+	printf("%3d [%s]%s\n", res, (res <= 0) ? strerror(-res) : "Success",
+		(res != expect) ? " -- FAILED" : "");
 	if (res != expect)
 		return 1;
 

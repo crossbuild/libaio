@@ -28,6 +28,20 @@ int test_main(void)
 	status |= attempt_rw(rwfd, buf, SIZE,  0,  READ, SIZE);
 	status |= attempt_rw(rwfd, buf, SIZE,  0, WRITE, SIZE);
 
+	res = munmap(buf, page_size);			assert(res == 0);
+	buf = mmap(0, page_size, PROT_READ, MAP_SHARED, rwfd, 0);
+	assert(buf != (char *)-1);
+
+	status |= attempt_rw(rwfd, buf, SIZE,  0, WRITE, SIZE);
+	status |= attempt_rw(rwfd, buf, SIZE,  0,  READ, -EFAULT);
+
+	res = munmap(buf, page_size);			assert(res == 0);
+	buf = mmap(0, page_size, PROT_WRITE, MAP_SHARED, rwfd, 0);
+	assert(buf != (char *)-1);
+
+	status |= attempt_rw(rwfd, buf, SIZE,  0,  READ, SIZE);
+	status |= attempt_rw(rwfd, buf, SIZE,  0, WRITE, -EFAULT);
+
 	return status;
 }
 

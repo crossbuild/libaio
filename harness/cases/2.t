@@ -14,7 +14,8 @@ int attempt(int n, io_context_t *ctxp, int expect)
 	printf("expect %3d: io_setup(%5d, %p) = ", expect, n, ctxp);
 	fflush(stdout);
 	res = io_setup(n, ctxp);
-	printf("%3d [%s]\n", res, strerror(-res));
+	printf("%3d [%s]%s\n", res, strerror(-res), 
+		(res != expect) ? " -- FAILED" : "");
 	if (res != expect)
 		return 1;
 
