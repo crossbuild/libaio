@@ -1,6 +1,6 @@
 Name: libaio
-Version: 0.3.96
-Release: 3
+Version: 0.3.97
+Release: 1
 Summary: Linux-native asynchronous I/O access library
 Copyright: LGPL
 Group:  System Environment/Libraries
@@ -58,6 +58,14 @@ make install prefix=$RPM_BUILD_ROOT/usr \
 %attr(0644,root,root) %{_libdir}/libaio.a
 
 %changelog
+* Tue Feb 24 2004 Jeff Moyer <jmoyer@redhat.com> 0.3.97-1
+- Use libc syscall(2) instead of rolling our own calling mechanism.  This 
+  change is inspired due to a failure to build with newer gcc, since clobber 
+  lists were wrong.
+- Add -fpic to the CFLAGS for all architectures.  Should address bz #109457.
+- change a #include from <linux/types.h> to <sys/types.h>.  Fixes a build
+  issue on s390.
+
 * Wed Jul  7 2003 Bill Nottingham <notting@redhat.com> 0.3.96-3
 - fix paths on lib64 arches
 

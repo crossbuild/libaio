@@ -22,7 +22,7 @@
  */
 #ifndef __LIBAIO_H
 #define __LIBAIO_H
-#include <asm/types.h>
+#include <sys/types.h>
 #include <string.h>
 
 struct timespec;

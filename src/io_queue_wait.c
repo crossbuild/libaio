@@ -17,7 +17,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
  */
 #define NO_SYSCALL_ERRNO
-#include <linux/types.h>
+#include <sys/types.h>
 #include <libaio.h>
 #include <errno.h>
 #include "syscall.h"
