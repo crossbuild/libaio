@@ -1,6 +1,6 @@
 Name: libaio
-Version: 0.3.11
-Release: 2
+Version: 0.3.12
+Release: 1
 Summary: Linux-native asynchronous I/O access library
 Copyright: LGPL
 Group:  System Environment/Libraries
@@ -40,11 +40,10 @@ make install prefix=$RPM_BUILD_ROOT/usr root=$RPM_BUILD_ROOT
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
-%post
 # if no libredhat-kernel.so is in place, the stub's version of 1.0.0
 # will link correctly for apps.  This requires that the kernel's 
 # libredhat-kernel.so be 1.0.1 or higher.
-/sbin/ldconfig
+%post -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
 
@@ -63,6 +62,9 @@ make install prefix=$RPM_BUILD_ROOT/usr root=$RPM_BUILD_ROOT
 %attr(0755,root,root) /usr/lib/libredhat-kernel.so
 
 %changelog
+* Mon Apr 15 2002 Tim Powers <timp@redhat.com>
+- make the post scriptlet not use /bin/sh
+
 * Sat Apr 12 2002 Benjamin LaHaise <bcrl@redhat.com>
 - add /lib/libredhat-kernel* to %files.
 
