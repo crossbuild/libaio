@@ -1,8 +1,8 @@
-#define __NR_io_setup		245
-#define __NR_io_destroy		246
-#define __NR_io_getevents	247
-#define __NR_io_submit		248
-#define __NR_io_cancel		249
+#define __NR_io_setup		206
+#define __NR_io_destroy		207
+#define __NR_io_getevents	208
+#define __NR_io_submit		209
+#define __NR_io_cancel		210
 
 #define io_syscall1(type, name, type1, arg1)				\
 	type name(type1 arg1)						\
