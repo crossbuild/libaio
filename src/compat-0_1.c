@@ -27,28 +27,6 @@
 #include "syscall.h"
 
 
-/*
- * Compatible interfaces that still need an entry point.
- */
-
-SYMVER(compat0_1_io_queue_init, io_queue_init, 0.1);
-int compat0_1_io_queue_init(int maxevents, io_context_t *ctxp)
-{
-	return io_queue_init(maxevents, ctxp);
-}
-
-SYMVER(compat0_1_io_queue_run, io_queue_run, 0.1);
-int compat0_1_io_queue_run(io_context_t ctx)
-{
-	return io_queue_run(ctx);
-}
-
-SYMVER(compat0_1_io_submit, io_submit, 0.1);
-int compat0_1_io_submit(io_context_t ctx, long nr, struct iocb **iocbs)
-{
-	return io_submit(ctx, nr, iocbs);
-}
-
 /* ABI change.  Provide partial compatibility on this one for now. */
 SYMVER(compat0_1_io_cancel, io_cancel, 0.1);
 int compat0_1_io_cancel(io_context_t ctx, struct iocb *iocb)
@@ -68,11 +46,6 @@ int compat0_1_io_queue_wait(io_context_t ctx, struct timespec *when)
 	return io_getevents(ctx, 0, 0, NULL, when ? &timeout : NULL);
 }
 
-SYMVER(compat0_1_io_queue_release, io_queue_release, 0.1);
-int compat0_1_io_queue_release(io_context_t ctx)
-{
-	return io_destroy(ctx);
-}
 
 /* ABI change.  Provide backwards compatibility for this one. */
 SYMVER(compat0_1_io_getevents, io_getevents, 0.1);
