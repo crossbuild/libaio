@@ -7,7 +7,7 @@ Group:  System Environment/Libraries
 Source: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root
 # Fix ExclusiveArch as we implement this functionality on more architectures
-ExclusiveArch: i386 ia64
+ExclusiveArch: i386 x86_64 ia64
 
 %description
 The Linux-native asynchronous I/O facility ("async I/O", or "aio") has a
@@ -56,6 +56,10 @@ make install prefix=$RPM_BUILD_ROOT/usr root=$RPM_BUILD_ROOT
 %attr(0644,root,root) /usr/lib/libaio.a
 
 %changelog
+* Fri Sep 12 2002 Benjamin LaHaise <bcrl@redhat.com>
+- libaio 0.3.92 test release
+- build on x86-64
+
 * Thu Sep 12 2002 Benjamin LaHaise <bcrl@redhat.com>
 - libaio 0.3.91 test release
 - build on ia64
