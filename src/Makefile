@@ -1,4 +1,4 @@
-prefix=usr
+prefix=/usr
 
 CFLAGS=-nostdlib -nostartfiles -Wall -I. -g -fomit-frame-pointer -O2
 SO_CFLAGS=-shared $(CFLAGS)
@@ -35,8 +35,8 @@ libaio.a: $(libaio_objs)
 	ar r libaio.a $^
 	ranlib libaio.a
 
-$(soname): $(libaio_sobjs) libredhat-kernel.so
-	$(CC) $(SO_CFLAGS) -Wl,--version-script=libaio.map -Wl,-soname=$(soname) -o $@ $^ $(LINK_FLAGS)
+$(soname): $(libaio_sobjs) libredhat-kernel.so libaio.map
+	$(CC) $(SO_CFLAGS) -Wl,--version-script=libaio.map -Wl,-soname=$(soname) -o $@ $(libaio_sobjs) libredhat-kernel.so $(LINK_FLAGS)
 
 install: $(all_targets)
 	@$(MAKE) -C lib/src install
