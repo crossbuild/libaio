@@ -11,8 +11,9 @@ void aio_setup(int n)
 	}
 }
 
-void sync_submit(struct iocb *iocb, struct io_event *event)
+int sync_submit(struct iocb *iocb)
 {
+	struct io_event event;
 	struct iocb *iocbs[] = { iocb };
 	int res;
 
@@ -24,14 +25,15 @@ void sync_submit(struct iocb *iocb, struct io_event *event)
 	res = io_submit(io_ctx, 1, iocbs);
 	if (res != 1) {
 		printf("sync_submit: io_submit res=%d [%s]\n", res, strerror(-res));
-		exit(3);
+		return res;
 	}
 
-	res = io_getevents(io_ctx, 1, event, &ts);
+	res = io_getevents(io_ctx, 1, &event, &ts);
 	if (res != 1) {
 		printf("sync_submit: io_getevents res=%d [%s]\n", res, strerror(-res));
-		exit(3);
+		return res;
 	}
+	return event.res;
 }
 
 #define SETUP	aio_setup(1024)

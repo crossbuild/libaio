@@ -15,16 +15,21 @@ $(PROGS): %.p: %.t $(HARNESS_SRCS)
 clean:
 	rm -f $(PROGS) *.o runtests.out rofile wofile rwfile
 
-rofile:
-	touch $@
+.PHONY:
+
+rofile: .PHONY
+	rm -f $@
+	echo "test" >$@
 	chmod 400 $@
 
-wofile:
-	touch $@
+wofile: .PHONY
+	rm -f $@
+	echo "test" >$@
 	chmod 200 $@
 
-rwfile:
-	touch $@
+rwfile: .PHONY
+	rm -f $@
+	echo "test" >$@
 	chmod 600 $@
 
 check: $(PROGS) rofile rwfile wofile

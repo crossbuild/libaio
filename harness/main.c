@@ -1,8 +1,13 @@
 #include <stdio.h>
 #include <errno.h>
-#include <libaio.h>
 #include <assert.h>
 #include <stdlib.h>
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include <libaio.h>
 
 #if defined(__i386__)
 #define KERNEL_RW_POINTER	((void *)0xc0010000)
