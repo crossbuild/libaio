@@ -13,9 +13,8 @@ ExclusiveArch: i386
 The Linux-native asynchronous I/O facility ("async I/O", or "aio") has a
 richer API and capability set than the simple POSIX async I/O facility.
 This library, libaio, provides the Linux-native API for async I/O.
-The POSIX async I/O facility requires this library in order to provide
-kernel-accelerated async I/O capabilities, as do applications which
-require the Linux-native async I/O API.
+It is not required, however, for applications which use the POSIX async
+I/O facility provided by the GNU C library.
 
 %package devel
 Summary: Development files for Linux-native asynchronous I/O access
@@ -23,8 +22,8 @@ Group: Development/System
 Requires: libaio
 
 %description devel
-This package provides header files and libraries to link against for
-the Linux-native asynchronous I/O facility ("async I/O", or "aio").
+This package provides header files to include and libraries to link with
+for the Linux-native asynchronous I/O facility ("async I/O", or "aio").
 
 %prep
 %setup
