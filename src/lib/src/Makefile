@@ -24,7 +24,7 @@ libredhat-kernel.so: libredhat-kernel.so.1
 
 install:
 	install -D -m 755 libredhat-kernel.so.1 $(root)/lib/kernel/stub/libredhat-kernel.so.1
-	ln -sf libredhat-kernel.so.1 $(root)/lib/kernel/stub/libaio.so
+	ln -sf libredhat-kernel.so.1 $(root)/lib/kernel/stub/libredhat-kernel.so
 
 clean:
 	rm -f *.o libredhat-kernel.so myln libredhat-kernel.so.1
