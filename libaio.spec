@@ -8,7 +8,6 @@ Source: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root
 # Fix ExclusiveArch as we implement this functionality on more architectures
 ExclusiveArch: i386 ia64
-Requires: initscripts >= 6.47-1
 
 %description
 The Linux-native asynchronous I/O facility ("async I/O", or "aio") has a
