@@ -39,23 +39,42 @@ int sync_submit(struct iocb *iocb)
 #define SETUP	aio_setup(1024)
 
 
-#define READ	'r'
-#define WRITE	'w'
+#define READ		'r'
+#define WRITE		'w'
+#define READ_SILENT	'R'
+#define WRITE_SILENT	'W'
 int attempt_rw(int fd, void *buf, int count, long long pos, int rw, int expect)
 {
 	struct iocb iocb;
 	int res;
+	int silent = 0;
 
 	switch(rw) {
-	case READ:	io_prep_pread (&iocb, fd, buf, count, pos); break;
-	case WRITE:	io_prep_pwrite(&iocb, fd, buf, count, pos); break;
+	case READ_SILENT:
+		silent = 1;
+	case READ:
+		io_prep_pread (&iocb, fd, buf, count, pos);
+		break;
+	case WRITE_SILENT:
+		silent = 1;
+	case WRITE:
+		io_prep_pwrite(&iocb, fd, buf, count, pos);
+		break;
 	}
 
-	printf("expect %3d: (%c), res = ", expect, rw);
-	fflush(stdout);
+	if (!silent) {
+		printf("expect %5d: (%c), res = ", expect, rw);
+		fflush(stdout);
+	}
 	res = sync_submit(&iocb);
-	printf("%3d [%s]%s\n", res, (res <= 0) ? strerror(-res) : "Success",
-		(res != expect) ? " -- FAILED" : "");
+	if (!silent || res != expect) {
+		if (silent)
+			printf("expect %5d: (%c), res = ", expect, rw);
+		printf("%5d [%s]%s\n", res,
+			(res <= 0) ? strerror(-res) : "Success",
+			(res != expect) ? " -- FAILED" : "");
+	}
+
 	if (res != expect)
 		return 1;
 

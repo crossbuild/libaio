@@ -45,8 +45,8 @@ int test_main(void)
 	rwfd = open("testdir/rwfile", O_RDWR);		assert(rwfd != -1);
 	res = ftruncate(rwfd, 0);			assert(res == 0);
 	buf = malloc(size);				assert(buf != NULL);
-	memset(buf, 0, size);
 
+	//memset(buf, 0, size);
 	status |= attempt_rw(rwfd, buf, size,  0, WRITE, size);
 	status |= attempt_rw(rwfd, buf, size,  0,  READ, size);
 

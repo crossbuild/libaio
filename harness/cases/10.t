@@ -30,6 +30,7 @@ int test_main(void)
 	status |= attempt_rw(rwfd, buf, SIZE,   LIMIT-SIZE,  READ, SIZE);
 
 	status |= attempt_rw(rwfd, buf, SIZE,        LIMIT, WRITE, -ENOSPC);
+	status |= attempt_rw(rwfd, buf, SIZE,        LIMIT,  READ,       0);
 
 	res = ftruncate(rwfd, 0);			assert(res == 0);
 
