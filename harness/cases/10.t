@@ -13,8 +13,12 @@
 
 int test_main(void)
 {
-#define LIMIT	8192
-#define SIZE	8192
+/* Note: changing either of these requires updating the ext2-enospc.img
+ * filesystem image.  Also, if SIZE is less than PAGE_SIZE, problems 
+ * crop up due to ext2's preallocation.
+ */
+#define LIMIT	65536
+#define SIZE	65536
 	char *buf;
 	int rwfd;
 	int status = 0, res;

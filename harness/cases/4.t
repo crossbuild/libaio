@@ -61,7 +61,11 @@ int test_main(void)
 
 	status |= attempt(rwfd, KERNEL_RW_POINTER, SIZE, 0,  READ, -EFAULT);
 	status |= attempt(rwfd, KERNEL_RW_POINTER, SIZE, 0, WRITE, -EFAULT);
+
+	/* Some architectures map the 0 page.  Ugh. */
+#if !defined(__ia64__)
 	status |= attempt(rwfd,              NULL, SIZE, 0, WRITE, -EFAULT);
+#endif
 
 	return status;
 }
