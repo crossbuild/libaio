@@ -1,5 +1,5 @@
 Name: libaio
-Version: 0.3.100
+Version: 0.3.101
 Release: 1
 Summary: Linux-native asynchronous I/O access library
 Copyright: LGPL
@@ -7,7 +7,7 @@ Group:  System Environment/Libraries
 Source: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root
 # Fix ExclusiveArch as we implement this functionality on more architectures
-ExclusiveArch: i386 x86_64 ia64 s390 s390x ppc ppc64
+ExclusiveArch: i386 x86_64 ia64 s390 s390x ppc ppc64 ppc64pseries ppc64iseries
 
 %description
 The Linux-native asynchronous I/O facility ("async I/O", or "aio") has a
@@ -59,6 +59,11 @@ make install prefix=$RPM_BUILD_ROOT/usr \
 %attr(0644,root,root) %{_libdir}/libaio.a
 
 %changelog
+* Wed Oct 13 2004 Jeff Moyer <jmoyer@redhat.com> - 0.3.101-1
+- Revert syscall return values to be -ERRNO.  This was an inadvertant bug
+  introduced when clobber lists changed.
+- add ppc64pseries and ppc64iseries to exclusivearch
+
 * Tue Sep 14 2004 Jeff Moyer <jmoyer@redhat.com> - 0.3.100-1
 - Switch around the tests for _PPC_ and _powerpc64_ so that the ppc64 
   platforms get the right padding.
