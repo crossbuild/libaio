@@ -22,5 +22,36 @@
 #include <time.h>
 #include "syscall.h"
 
-io_syscall5(int, io_getevents_0_4, io_getevents, io_context_t, ctx, long, min_nr, long, nr, struct io_event *, events, struct timespec *, timeout)
+io_syscall5(static int, __io_getevents_0_4, io_getevents, io_context_t, ctx, long, min_nr, long, nr, struct io_event *, events, struct timespec *, timeout)
+
+#define AIO_RING_MAGIC                  0xa10a10a1
+
+/* Ben will hate me for this */
+struct aio_ring {
+	unsigned        id;     /* kernel internal index number */
+	unsigned        nr;     /* number of io_events */
+	unsigned        head;
+	unsigned        tail;
+ 
+	unsigned        magic;
+	unsigned        compat_features;
+	unsigned        incompat_features;
+	unsigned        header_length;  /* size of aio_ring */
+};
+
+int io_getevents_0_4(io_context_t ctx, long min_nr, long nr, struct io_event * events, struct timespec * timeout)
+{
+	struct aio_ring *ring;
+	ring = (struct aio_ring*)ctx;
+	if (ring==NULL || ring->magic != AIO_RING_MAGIC)
+		goto do_syscall;
+	if (timeout!=NULL && timeout->tv_sec == 0 && timeout->tv_nsec == 0) {
+		if (ring->head == ring->tail)
+			return 0;
+	}
+	
+do_syscall:	
+	return __io_getevents_0_4(ctx, min_nr, nr, events, timeout);
+}
+
 DEFSYMVER(io_getevents_0_4, io_getevents, 0.4)
