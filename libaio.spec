@@ -1,6 +1,6 @@
 Name: libaio
 Version: 0.3.13
-Release: 2
+Release: 3
 Summary: Linux-native asynchronous I/O access library
 Copyright: LGPL
 Group:  System Environment/Libraries
@@ -8,7 +8,7 @@ Source: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root
 # Fix ExclusiveArch as we implement this functionality on more architectures
 ExclusiveArch: i386
-Requires: iniscripts >= 6.47-1
+Requires: initscripts >= 6.47-1
 
 %description
 The Linux-native asynchronous I/O facility ("async I/O", or "aio") has a
@@ -66,6 +66,7 @@ make install prefix=$RPM_BUILD_ROOT/usr root=$RPM_BUILD_ROOT
 * Mon Apr 29 2002 Benjamin LaHaise <bcrl@redhat.com>
 - add requires initscripts >= 6.47-1 to get boot time libredhat-kernel 
   linkage correct.
+- typo fix
 
 * Thu Apr 25 2002 Benjamin LaHaise <bcrl@redhat.com>
 - make /usr/lib/libredhat-kernel.so point to /lib/libredhat-kernel.so.1.0.0
