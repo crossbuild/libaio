@@ -1,15 +1,3 @@
-#/* sys_io_submit:
-# *      Queue the nr iocbs pointed to by iocbpp for processing.  Returns
-# *      the number of iocbs queued.  May return -EINVAL if the aio_context
-# *      specified by ctx_id is invalid, if nr is < 0, if the iocb at
-# *      *iocbpp[0] is not properly initialized, if the operation specified
-# *      is invalid for the file descriptor in the iocb.  May fail with
-# *      -EFAULT if any of the data structures point to invalid data.  May
-# *      fail with -EBADF if the file descriptor specified in the first
-# *      iocb is invalid.  May fail with -EAGAIN if insufficient resources
-# *      are available to queue any iocbs.  Will return 0 if nr is 0.  Will
-# *      fail with -ENOSYS if not implemented.
-# */
 .TH io_submit 2 2002-09-02 "Linux 2.4" "Linux AIO"
 .SH NAME
 io_submit \- submit io requests
@@ -19,25 +7,73 @@ io_submit \- submit io requests
 .B #include <libaio.h>
 .LP
 .BI "int io_submit(io_context_t " ctx ", long " nr ", struct iocb *" iocbs "[]);"
-.nf
-struct iocb {
-	void		*data;
-	unsigned	key;
-	short		aio_lio_opcode;
-	short		aio_reqprio;
-	int		aio_fildes;
-};
-.fi
 .SH DESCRIPTION
 .B io_submit
-submits
+submits to the io_context
+.I ctx
+up to
 .I nr
-iocbs for processing.
+I/O requests pointed to by the vector
+.IR iocbs .
+
+The
+.B iocb
+structure is defined as something like
+.sp
+.RS
+.nf
+struct iocb {
+    void    *data;
+.\"    unsigned    key;
+    short    aio_lio_opcode;
+    short    aio_reqprio;
+    int      aio_fildes;
+};
+.fi
+.RE
+.sp
+.I data
+is a an opaque pointer which will upon completion be returned in the
+.B io_event
+structure by
+.BR io_getevents (2).
+.\" and io_wait(2)
+Callers will typically use this to point directly or indirectly to a
+callback function.
+.sp
+.I aio_lio_opcode
+is the I/O operation requested.  Callers will typically set this and the
+arguments to the I/O operation calling the
+.BR io_prep_ (3)
+function corresponding to the operation.
+.sp
+.I aio_reqprio
+is the priority of the request.  Higher values have more priority; the
+normal priority is 0.
+.sp
+.I aio_fildes
+is the file descriptor for the I/O operation.
+Callers will typically set this and the
+arguments to the I/O operation calling the
+.BR io_prep_ *(3)
+function corresponding to the operation.
+.sp
+The caller may not modify the contents or resubmit a submitted
+.B iocb
+structure until after the operation completes or is canceled.
+The implementation of
+.BR io_submit (2)
+is permitted to modify reserved fields of the
+.B iocb
+structure.
 .SH "RETURN VALUES"
-On success,
+If able to submit at least one iocb,
 .B io_submit
-returns the number of iocbs submitted successfully.  Otherwise, -error is return, where 
-error is one of the Exxx values defined in the Errors section.
+returns the number of iocbs submitted successfully.  Otherwise, 
+.RI - error
+is returned, where 
+.I error
+is one of the Exxx values defined in the Errors section.
 .SH ERRORS
 .TP
 .B EFAULT
@@ -45,24 +81,29 @@ error is one of the Exxx values defined in the Errors section.
 referenced data outside of the program's accessible address space.
 .TP
 .B EINVAL
+.I nr
+is negative,
 .I ctx
-refers to an unitialized aio context, the iocb pointed to by 
-.I iocbs
-contains an improperly initialized iocb, 
+refers to an uninitialized aio context, the iocb pointed to by 
+.IR iocbs [0]
+is improperly initialized or specifies an unsupported operation.
 .TP
 .B EBADF
-The iocb contains a file descriptor that does not exist.
+The iocb pointed to by
+.IR iocbs [0]
+contains a file descriptor that does not exist.
 .TP
-.B EINVAL
-The file specified in the iocb does not support the given io operation.
+.B EAGAIN
+Insufficient resources were available to queue any operations.
 .SH "SEE ALSO"
-.BR io_setup(2),
-.BR io_destroy(2),
-.BR io_getevents(2),
-.BR io_wait(2),
-.BR io_prep_pread(2),
-.BR io_prep_pwrite(2),
-.BR io_prep_fsync(2),
-.BR io_prep_fdsync(2),
-.BR io_cancel(2),
-.BR errno(3)
+.BR io_setup (2),
+.BR io_destroy (2),
+.BR io_getevents (2),
+.\".BR io_wait (2),
+.BR io_prep_pread (3),
+.BR io_prep_pwrite (3),
+.BR io_prep_fsync (3),
+.BR io_prep_fdsync (3),
+.BR io_prep_noop (3),
+.BR io_cancel (2),
+.BR errno (3)
