@@ -1,0 +1,13 @@
+0.3.7
+	- fix assembly function .types
+	- export io_getevents
+	- fix io_submit function prototype to match the kernel
+	- provide /usr/lib/libredhat-kernel.so link for compilation
+	  (do NOT link against libredhat-kernel.so directly)
+	- fix soname to libaio.so.1
+	- fix dummy libredhat-kernel's soname
+	- work around nfs bug
+	- provide and install libredhat-kernel.so.1 stub
+	- Makefile improvements
+	- make sure dummy libredhat-kernel.so only returns -ENOSYS
+
