@@ -20,4 +20,4 @@
 #include <libaio.h>
 #include "syscall.h"
 
-io_syscall2(int, io_setup, int, maxevents, io_context_t *, ctxp)
+io_syscall2(int, io_setup, io_setup, int, maxevents, io_context_t *, ctxp)

@@ -4,6 +4,9 @@
 #define SYMVER(compat_sym, orig_sym, ver_sym)	\
 	__asm__(".symver " SYMSTR(compat_sym) "," SYMSTR(orig_sym) "@LIBAIO_" SYMSTR(ver_sym));
 
+#define DEFSYMVER(compat_sym, orig_sym, ver_sym)	\
+	__asm__(".symver " SYMSTR(compat_sym) "," SYMSTR(orig_sym) "@@LIBAIO_" SYMSTR(ver_sym));
+
 #if defined(__i386__)
 #include "syscall-i386.h"
 #elif defined(__x86_64__)

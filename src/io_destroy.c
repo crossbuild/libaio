@@ -20,4 +20,4 @@
 #include <libaio.h>
 #include "syscall.h"
 
-io_syscall1(int, io_destroy, io_context_t, ctx)
+io_syscall1(int, io_destroy, io_destroy, io_context_t, ctx)

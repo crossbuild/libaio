@@ -20,5 +20,4 @@
 #include <libaio.h>
 #include "syscall.h"
 
-SYMVER(io_submit, io_submit, 0.1);
-io_syscall3(int, io_submit, io_context_t, ctx, long, nr, struct iocb **, iocbs)
+io_syscall3(int, io_submit, io_submit, io_context_t, ctx, long, nr, struct iocb **, iocbs)

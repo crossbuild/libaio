@@ -37,8 +37,8 @@ int compat0_1_io_cancel(io_context_t ctx, struct iocb *iocb)
 	return io_cancel(ctx, iocb, &event);
 }
 
-SYMVER(compat0_1_io_wait, io_wait, 0.1);
-int compat0_1_io_wait(io_context_t ctx, struct iocb *iocb, const struct timespec *when)
+SYMVER(compat0_1_io_queue_wait, io_queue_wait, 0.1);
+int compat0_1_io_queue_wait(io_context_t ctx, struct iocb *iocb, const struct timespec *when)
 {
 	return -ENOSYS;
 }
