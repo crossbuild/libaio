@@ -17,6 +17,14 @@ The POSIX async I/O facility requires this library in order to provide
 kernel-accelerated async I/O capabilities, as do applications which
 require the Linux-native async I/O API.
 
+%package devel
+Summary: Development files for Linux-native asynchronous I/O access
+Group: Development/System
+
+%description devel
+This package provides header files and libraries to link against for
+the Linux-native asynchronous I/O facility ("async I/O", or "aio").
+
 %prep
 %setup
 
