@@ -1,6 +1,6 @@
 Name: libaio
 Version: 0.3.97
-Release: 1
+Release: 2
 Summary: Linux-native asynchronous I/O access library
 Copyright: LGPL
 Group:  System Environment/Libraries
@@ -58,6 +58,10 @@ make install prefix=$RPM_BUILD_ROOT/usr \
 %attr(0644,root,root) %{_libdir}/libaio.a
 
 %changelog
+* Thu Feb 26 2004 Jeff Moyer <jmoyer@redhat.com> 0.3.97-2
+- make srpm was using rpm to do a build.  changed that to use rpmbuild if
+  it exists, and fallback to rpm if it doesn't.
+
 * Tue Feb 24 2004 Jeff Moyer <jmoyer@redhat.com> 0.3.97-1
 - Use libc syscall(2) instead of rolling our own calling mechanism.  This 
   change is inspired due to a failure to build with newer gcc, since clobber 
