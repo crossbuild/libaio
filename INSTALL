@@ -1,6 +1,6 @@
 To install the library, execute the command:
 
-	make prefix=`pwd`/usr -C src install
+	make prefix=`pwd`/usr install
 
 which will install the binaries and header files into the directory 
 usr.  Set prefix=/usr to get them installed into the main system.

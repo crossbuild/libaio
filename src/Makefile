@@ -1,17 +1,19 @@
 prefix=usr
-#INCDIR=/home/bcrl/aio/aio-2.4.9-ac18/include
-INCDIR=/md0/aio/aio-v2.4.13-ac6/include
 
-CFLAGS=-nostdlib -nostartfiles -Wall -I. -I$(INCDIR) -g
+CFLAGS=-nostdlib -nostartfiles -Wall -I. -g
 SO_CFLAGS=-shared $(CFLAGS)
 L_CFLAGS=$(CFLAGS)
 LINK_FLAGS=-Llib -lredhat-kernel
 
 soname=libaio.so.1
-all_targets += libaio.a $(soname)
+all_targets += libaio.a $(soname) lib/libredhat-kernel.so
 
 all: $(all_targets)
 
+lib/libredhat-kernel.so:
+	@$(MAKE) -C lib/src
+	@cp lib/src/libredhat-kernel.so.1 lib
+	@ln -sf lib/libredhat-kernel.so.1 libredhat-kernel.so
 
 libaio_srcs := io_queue_init.c io_submit.c io_cancel.c io_queue_wait.c
 libaio_srcs += io_queue_run.c
