@@ -33,5 +33,5 @@ testdir/rwfile: .PHONY
 	chmod 600 $@
 
 check: $(PROGS) testdir/rofile testdir/rwfile testdir/wofile
-	./runtests.sh $(PROGS)
+	./runtests.sh `/bin/ls -d $(PROGS) | sort -n`
 
