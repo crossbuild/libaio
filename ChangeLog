@@ -1,6 +1,7 @@
 0.3.8
 	- make clean deletes libredhat-kernel.so.1
 	- const struct timespec *
+	- add make srpm target
 
 0.3.7
 	- fix assembly function .types

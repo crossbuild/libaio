@@ -3,6 +3,7 @@ SPECFILE=$(NAME).spec
 VERSION=$(shell awk '/Version:/ { print $$2 }' $(SPECFILE))
 RELEASE=$(shell awk '/Release:/ { print $$2 }' $(SPECFILE))
 CVSTAG = $(NAME)_$(subst .,-,$(VERSION))_$(subst .,-,$(RELEASE))
+RPM=rpm
 
 default: all
 
@@ -30,3 +31,6 @@ create-archive: tag-archive
 	@echo "The final archive is ./$(NAME)-$(VERSION).tar.gz."
 
 archive: clean tag-archive create-archive
+
+srpm:
+	$(RPM) --define "_sourcedir `pwd`" --define "_srcrpmdir `pwd`" --nodeps -bs $(SPECFILE)
