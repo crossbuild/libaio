@@ -1,5 +1,5 @@
 Name: libaio
-Version: 0.3.4
+Version: 0.3.5
 Release: 1
 Summary: Linux-native asynchronous I/O access library
 Copyright: LGPL
@@ -20,6 +20,7 @@ require the Linux-native async I/O API.
 %package devel
 Summary: Development files for Linux-native asynchronous I/O access
 Group: Development/System
+Requires: libaio
 
 %description devel
 This package provides header files and libraries to link against for
