@@ -119,6 +119,7 @@ static inline void io_set_callback(struct iocb *iocb, io_callback_t cb)
 
 static inline void io_prep_pread(struct iocb *iocb, int fd, void *buf, size_t count, long long offset)
 {
+	memset(iocb, 0, sizeof(*iocb));
 	iocb->aio_fildes = fd;
 	iocb->aio_lio_opcode = IO_CMD_PREAD;
 	iocb->aio_reqprio = 0;
@@ -129,6 +130,7 @@ static inline void io_prep_pread(struct iocb *iocb, int fd, void *buf, size_t co
 
 static inline void io_prep_pwrite(struct iocb *iocb, int fd, void *buf, size_t count, long long offset)
 {
+	memset(iocb, 0, sizeof(*iocb));
 	iocb->aio_fildes = fd;
 	iocb->aio_lio_opcode = IO_CMD_PWRITE;
 	iocb->aio_reqprio = 0;
@@ -139,47 +141,47 @@ static inline void io_prep_pwrite(struct iocb *iocb, int fd, void *buf, size_t c
 
 static inline void io_prep_poll(struct iocb *iocb, int fd, int events)
 {
+	memset(iocb, 0, sizeof(*iocb));
 	iocb->aio_fildes = fd;
 	iocb->aio_lio_opcode = IO_CMD_POLL;
 	iocb->aio_reqprio = 0;
-	memset(&iocb->u, 0, sizeof(iocb->u));
 	iocb->u.poll.events = events;
 }
 
 static inline int io_poll(io_context_t ctx, struct iocb *iocb, io_callback_t cb, int fd, int events)
 {
-	io_set_callback(iocb, cb);
 	io_prep_poll(iocb, fd, events);
+	io_set_callback(iocb, cb);
 	return io_submit(ctx, 1, &iocb);
 }
 
 static inline void io_prep_fsync(struct iocb *iocb, int fd)
 {
+	memset(iocb, 0, sizeof(*iocb));
 	iocb->aio_fildes = fd;
 	iocb->aio_lio_opcode = IO_CMD_FSYNC;
 	iocb->aio_reqprio = 0;
-	memset(&iocb->u, 0, sizeof(iocb->u));
 }
 
 static inline int io_fsync(io_context_t ctx, struct iocb *iocb, io_callback_t cb, int fd)
 {
-	io_set_callback(iocb, cb);
 	io_prep_fsync(iocb, fd);
+	io_set_callback(iocb, cb);
 	return io_submit(ctx, 1, &iocb);
 }
 
 static inline void io_prep_fdsync(struct iocb *iocb, int fd)
 {
+	memset(iocb, 0, sizeof(*iocb));
 	iocb->aio_fildes = fd;
 	iocb->aio_lio_opcode = IO_CMD_FDSYNC;
 	iocb->aio_reqprio = 0;
-	memset(&iocb->u, 0, sizeof(iocb->u));
 }
 
 static inline int io_fdsync(io_context_t ctx, struct iocb *iocb, io_callback_t cb, int fd)
 {
-	io_set_callback(iocb, cb);
 	io_prep_fdsync(iocb, fd);
+	io_set_callback(iocb, cb);
 	return io_submit(ctx, 1, &iocb);
 }
 
