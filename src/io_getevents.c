@@ -22,7 +22,7 @@
 #include <time.h>
 #include "vsys_def.h"
 
-int io_getevents(io_context_t ctx, long nr, struct io_event *events, struct timespec *timeout)
+int io_getevents(io_context_t ctx, long nr, struct io_event *events, const struct timespec *timeout)
 {
 	return vsys_io_getevents(ctx, nr, events, timeout);
 }
