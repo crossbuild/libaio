@@ -29,6 +29,10 @@ int test_main(void)
 	status |= attempt_rw(rwfd, buf, SIZE,   LIMIT-SIZE, WRITE, SIZE);
 	status |= attempt_rw(rwfd, buf, SIZE,   LIMIT-SIZE,  READ, SIZE);
 
+	status |= attempt_rw(rwfd, buf, SIZE,        LIMIT, WRITE, -ENOSPC);
+
+	res = ftruncate(rwfd, 0);			assert(res == 0);
+
 	status |= attempt_rw(rwfd, buf, SIZE, 1+LIMIT-SIZE, WRITE, SIZE-1);
 	status |= attempt_rw(rwfd, buf, SIZE, 1+LIMIT-SIZE,  READ, SIZE-1);
 	status |= attempt_rw(rwfd, buf, SIZE,        LIMIT,  READ,      0);
