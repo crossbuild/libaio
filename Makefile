@@ -3,7 +3,7 @@ SPECFILE=$(NAME).spec
 VERSION=$(shell awk '/Version:/ { print $$2 }' $(SPECFILE))
 RELEASE=$(shell awk '/Release:/ { print $$2 }' $(SPECFILE))
 CVSTAG = $(NAME)_$(subst .,-,$(VERSION))_$(subst .,-,$(RELEASE))
-RPM=rpm
+RPMBUILD=$(shell `which rpmbuild >&/dev/null` && echo "rpmbuild" || echo "rpm")
 
 prefix=/usr
 includedir=$(prefix)/include
@@ -39,4 +39,4 @@ create-archive: tag-archive
 archive: clean tag-archive create-archive
 
 srpm: create-archive
-	$(RPM) --define "_sourcedir `pwd`" --define "_srcrpmdir `pwd`" --nodeps -bs $(SPECFILE)
+	$(RPMBUILD) --define "_sourcedir `pwd`" --define "_srcrpmdir `pwd`" --nodeps -bs $(SPECFILE)
