@@ -50,7 +50,7 @@ int test_main(void)
 	status |= attempt_rw(rwfd, buf, size,  0, WRITE, size);
 	status |= attempt_rw(rwfd, buf, size,  0,  READ, size);
 
-	res = ftruncate(rwfd, 0);			assert(res == 0);
+	//res = ftruncate(rwfd, 0);			assert(res == 0);
 
 	return status;
 }

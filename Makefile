@@ -15,6 +15,7 @@ install:
 
 clean:
 	@$(MAKE) -C src clean
+	@$(MAKE) -C harness clean
 
 tag-archive:
 	@cvs -Q tag -F $(CVSTAG)
