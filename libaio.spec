@@ -56,7 +56,7 @@ make install prefix=$RPM_BUILD_ROOT/usr root=$RPM_BUILD_ROOT
 %attr(0644,root,root) /usr/lib/libaio.a
 
 %changelog
-* Mon Jan 27 2002 Benjamin LaHaise <bcrl@redhat.com>
+* Mon Jan 27 2003 Benjamin LaHaise <bcrl@redhat.com>
 - bump to 0.3.93-3 for rebuild.
 
 * Mon Dec 16 2002 Benjamin LaHaise <bcrl@redhat.com>
