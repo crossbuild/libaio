@@ -4,6 +4,8 @@ all: libredhat-kernel.so
 ASFLAGS=-D__KERNEL__ -D__ASSEMBLY__ -I../include -nostdlib -nostartfiles
 CFLAGS=-D__KERNEL__ -I../include -nostdlib -nostartfiles
 soname=libredhat-kernel.so.1
+dummyver=.0.0
+extraver=.0.1
 
 so_objs=vsysaddr.o kso_init.o
 
@@ -24,8 +26,9 @@ libredhat-kernel.so: $(soname)
 	cp -f $< $@
 
 install:
-	install -D -m 755 $(soname) $(root)/lib/kernel/stub/$(soname)
-	ln -sf $(soname) $(root)/lib/kernel/stub/libredhat-kernel.so
+	install -D -m 755 $(soname) $(root)/lib/kernel/stub/$(soname)$(extraver)
+	install -D -m 755 $(soname) $(root)/lib/$(soname)$(dummyver)
+	ln -sf $(soname)$(extraver) $(root)/lib/kernel/stub/libredhat-kernel.so
 	mkdir -p $(root)/usr/lib
 	ln -sf /lib/libredhat-kernel.so $(root)/usr/lib/libredhat-kernel.so
 

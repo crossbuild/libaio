@@ -40,6 +40,7 @@ typedef enum io_iocb_cmd {
 	IO_CMD_FDSYNC = 3,
 
 	IO_CMD_POLL = 5,
+	IO_CMD_NOOP = 6,
 } io_iocb_cmd_t;
 
 #if defined(__i386__) /* little endian, 32 bits */

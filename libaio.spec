@@ -41,11 +41,9 @@ make install prefix=$RPM_BUILD_ROOT/usr root=$RPM_BUILD_ROOT
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 %post
-# if no libredhat-kernel.so is in place, temporarily use our stub
-# so that programs will link correctly
-if [ ! -f /lib/libredhat-kernel.so ] ; then
-	ln -sf /lib/kernel/stub/* /lib/
-fi
+# if no libredhat-kernel.so is in place, the stub's version of 1.0.0
+# will link correctly for apps.  This requires that the kernel's 
+# libredhat-kernel.so be 1.0.1 or higher.
 /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
@@ -64,6 +62,10 @@ fi
 %attr(0755,root,root) /usr/lib/libredhat-kernel.so
 
 %changelog
+* Fri Apr 12 2002 Benjamin LaHaise <bcrl@redhat.com>
+- make the dummy install as /lib/libredhat-kernel.so.1.0.0 so 
+  that ldconfig will link against it if no other is installed.
+
 * Tue Jan 22 2002 Benjamin LaHaise <bcrl@redhat.com>
 - add io_getevents
 
