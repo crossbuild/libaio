@@ -23,6 +23,7 @@
 
 #define dynamic_syscall(x,a) \
 	.globl	x				;\
+	.type	x, @function			;\
 	.align 16				;\
 	x:					;\
 		movl	$-ENOSYS,%eax		;\
