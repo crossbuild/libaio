@@ -56,14 +56,14 @@ typedef enum io_iocb_cmd {
 #define PADDED(x, y)	x, y
 #define PADDEDptr(x, y)	x
 #define PADDEDul(x, y)	unsigned long x
-#elif defined(__PPC__)  /* big endian, 32 bits */
-#define PADDED(x, y)	unsigned y; x
-#define PADDEDptr(x, y)	unsigned y; x
-#define PADDEDul(x, y)	unsigned y; unsigned long x
 #elif defined(__powerpc64__) /* big endian, 64 bits */
 #define PADDED(x, y)	unsigned y; x
 #define PADDEDptr(x,y)	x
 #define PADDEDul(x, y)	unsigned long x
+#elif defined(__PPC__)  /* big endian, 32 bits */
+#define PADDED(x, y)	unsigned y; x
+#define PADDEDptr(x, y)	unsigned y; x
+#define PADDEDul(x, y)	unsigned y; unsigned long x
 #elif defined(__s390x__) /* big endian, 64 bits */
 #define PADDED(x, y)	unsigned y; x
 #define PADDEDptr(x,y)	x

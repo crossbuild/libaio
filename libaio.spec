@@ -1,6 +1,6 @@
 Name: libaio
-Version: 0.3.99
-Release: 4
+Version: 0.3.100
+Release: 1
 Summary: Linux-native asynchronous I/O access library
 Copyright: LGPL
 Group:  System Environment/Libraries
@@ -59,6 +59,10 @@ make install prefix=$RPM_BUILD_ROOT/usr \
 %attr(0644,root,root) %{_libdir}/libaio.a
 
 %changelog
+* Tue Sep 14 2004 Jeff Moyer <jmoyer@redhat.com> - 0.3.100-1
+- Switch around the tests for _PPC_ and _powerpc64_ so that the ppc64 
+  platforms get the right padding.
+
 * Wed Jul 14 2004 Jeff Moyer <jmoyer@redhat.com> - 0.3.99-4
 - Ok, there was a race in moving the cvs module.  Someone rebuild from
   the old cvs into fc3.  *sigh*  bumping rev.
