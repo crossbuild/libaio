@@ -27,11 +27,6 @@
 #include "syscall.h"
 
 
-static inline int real_sys_io_cancel(io_context_t ctx, struct iocb *iocb, struct io_event *event)
-{
-	return syscall3(__NR_io_cancel, ctx, iocb, event);
-}
-
 /* ABI change.  Provide partial compatibility on this one for now. */
 SYMVER(compat0_1_io_cancel, io_cancel, 0.1);
 int compat0_1_io_cancel(io_context_t ctx, struct iocb *iocb)
@@ -39,7 +34,7 @@ int compat0_1_io_cancel(io_context_t ctx, struct iocb *iocb)
 	struct io_event event;
 
 	/* FIXME: the old ABI would return the event on the completion queue */
-	return real_sys_io_cancel(ctx, iocb, &event);
+	return io_cancel(ctx, iocb, &event);
 }
 
 SYMVER(compat0_1_io_wait, io_wait, 0.1);
@@ -50,12 +45,6 @@ int compat0_1_io_wait(io_context_t ctx, struct iocb *iocb, const struct timespec
 
 
 /* ABI change.  Provide backwards compatibility for this one. */
-static inline long real_sys_io_getevents(io_context_t ctx_id, long min_nr,
-		long nr, struct io_event *events, struct timespec *timeout)
-{
-	return syscall5(__NR_io_getevents, ctx_id, min_nr, nr, events, timeout);
-}
-
 SYMVER(compat0_1_io_getevents, io_getevents, 0.1);
 int compat0_1_io_getevents(io_context_t ctx_id, long nr,
 		       struct io_event *events,
@@ -64,7 +53,7 @@ int compat0_1_io_getevents(io_context_t ctx_id, long nr,
 	struct timespec timeout;
 	if (const_timeout)
 		timeout = *const_timeout;
-	return real_sys_io_getevents(ctx_id, 1, nr, events,
+	return io_getevents(ctx_id, 1, nr, events,
 			const_timeout ? &timeout : NULL);
 }
 

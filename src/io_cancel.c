@@ -19,7 +19,5 @@
 #include <libaio.h>
 #include "syscall.h"
 
-int io_cancel(io_context_t ctx, struct iocb *iocb, struct io_event *event)
-{
-	return syscall3(__NR_io_cancel, ctx, iocb, event);
-}
+io_syscall3(int, io_cancel, io_context_t, ctx, struct iocb *, iocb, struct io_event *, event)
+

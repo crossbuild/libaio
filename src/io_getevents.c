@@ -22,7 +22,4 @@
 #include <time.h>
 #include "syscall.h"
 
-int io_getevents(io_context_t ctx, long min_nr, long nr, struct io_event *events, struct timespec *timeout)
-{
-	return syscall5(__NR_io_getevents, ctx, min_nr, nr, events, timeout);
-}
+io_syscall5(int, io_getevents, io_context_t, ctx, long, min_nr, long, nr, struct io_event *, events, struct timespec *, timeout)
