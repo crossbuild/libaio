@@ -5,13 +5,18 @@ RELEASE=$(shell awk '/Release:/ { print $$2 }' $(SPECFILE))
 CVSTAG = $(NAME)_$(subst .,-,$(VERSION))_$(subst .,-,$(RELEASE))
 RPM=rpm
 
+prefix=/usr
+includedir=$(prefix)/include
+libdir=$(prefix)/lib
+
 default: all
 
 all:
 	@$(MAKE) -C src
 
 install:
-	@$(MAKE) -C src install
+	@$(MAKE) -C src install prefix=$(prefix) includedir=$(includedir) libdir=$(libdir)
+
 
 clean:
 	@$(MAKE) -C src clean

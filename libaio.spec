@@ -35,7 +35,9 @@ make
 %install
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
-make install prefix=$RPM_BUILD_ROOT/usr root=$RPM_BUILD_ROOT
+make install prefix=$RPM_BUILD_ROOT/usr \
+ libdir=$RPM_BUILD_ROOT/%{_libdir} \
+ root=$RPM_BUILD_ROOT
 
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
@@ -46,14 +48,14 @@ make install prefix=$RPM_BUILD_ROOT/usr root=$RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%attr(0755,root,root) /usr/lib/libaio.so.*
+%attr(0755,root,root) %{_libdir}/libaio.so.*
 %doc COPYING TODO
 
 %files devel
 %defattr(-,root,root)
-%attr(0644,root,root) /usr/include/*
-%attr(0755,root,root) /usr/lib/libaio.so
-%attr(0644,root,root) /usr/lib/libaio.a
+%attr(0644,root,root) %{_includedir}/*
+%attr(0755,root,root) %{_libdir}/libaio.so
+%attr(0644,root,root) %{_libdir}/libaio.a
 
 %changelog
 * Wed Jun 18 2003 Michael K. Johnson <johnsonm@redhat.com> 0.3.96-2
