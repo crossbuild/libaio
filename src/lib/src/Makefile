@@ -3,6 +3,7 @@ all: libredhat-kernel.so
 
 ASFLAGS=-D__KERNEL__ -D__ASSEMBLY__ -I../include -nostdlib -nostartfiles
 CFLAGS=-D__KERNEL__ -I../include -nostdlib -nostartfiles
+soname=libredhat-kernel.so.1
 
 so_objs=vsysaddr.o kso_init.o
 
@@ -15,19 +16,19 @@ make_stub_vsysaddr.S:
 
 vsysaddr.o: vsysaddr.S
 
-libredhat-kernel.so.1: $(so_objs) libredhat-kernel.map
-	gcc -nostdlib -nostartfiles -shared -Wl,--version-script=libredhat-kernel.map -o $@  $(so_objs)
+$(soname): $(so_objs) libredhat-kernel.map
+	gcc -nostdlib -nostartfiles -shared -Wl,--version-script=libredhat-kernel.map -Wl,-soname=$(soname) -o $@  $(so_objs)
 	strip $@
 
-libredhat-kernel.so: libredhat-kernel.so.1
+libredhat-kernel.so: $(soname)
 	cp -f $< $@
 
 install:
-	install -D -m 755 libredhat-kernel.so.1 $(root)/lib/kernel/stub/libredhat-kernel.so.1
-	ln -sf libredhat-kernel.so.1 $(root)/lib/kernel/stub/libredhat-kernel.so
+	install -D -m 755 $(soname) $(root)/lib/kernel/stub/$(soname)
+	ln -sf $(soname) $(root)/lib/kernel/stub/libredhat-kernel.so
 
 clean:
-	rm -f *.o libredhat-kernel.so myln libredhat-kernel.so.1
+	rm -f *.o *.so myln $(soname)
 
 # test app
 myln: myln.c libredhat-kernel.so Makefile
