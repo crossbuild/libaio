@@ -21,6 +21,9 @@
 #include <sys/stat.h>
 #include <errno.h>
 
+#include "syscall.h"
+
+SYMVER(io_queue_init, io_queue_init, 0.1);
 int io_queue_init(int maxevents, io_context_t *ctxp)
 {
 	if (maxevents > 0) {
