@@ -1,6 +1,6 @@
 Name: libaio
 Version: 0.3.11
-Release: 1
+Release: 2
 Summary: Linux-native asynchronous I/O access library
 Copyright: LGPL
 Group:  System Environment/Libraries
@@ -52,6 +52,7 @@ make install prefix=$RPM_BUILD_ROOT/usr root=$RPM_BUILD_ROOT
 %defattr(-,root,root)
 %attr(0755,root,root) /usr/lib/libaio.so.*
 %attr(0755,root,root) /lib/kernel/stub/*
+%attr(0755,root,root) /lib/libredhat-kernel*
 %doc COPYING TODO
 
 %files devel
@@ -62,6 +63,9 @@ make install prefix=$RPM_BUILD_ROOT/usr root=$RPM_BUILD_ROOT
 %attr(0755,root,root) /usr/lib/libredhat-kernel.so
 
 %changelog
+* Sat Apr 12 2002 Benjamin LaHaise <bcrl@redhat.com>
+- add /lib/libredhat-kernel* to %files.
+
 * Fri Apr 12 2002 Benjamin LaHaise <bcrl@redhat.com>
 - make the dummy install as /lib/libredhat-kernel.so.1.0.0 so 
   that ldconfig will link against it if no other is installed.
