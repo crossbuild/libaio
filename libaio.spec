@@ -1,6 +1,6 @@
 Name: libaio
 Version: 0.3.93
-Release: 2
+Release: 3
 Summary: Linux-native asynchronous I/O access library
 Copyright: LGPL
 Group:  System Environment/Libraries
@@ -56,6 +56,9 @@ make install prefix=$RPM_BUILD_ROOT/usr root=$RPM_BUILD_ROOT
 %attr(0644,root,root) /usr/lib/libaio.a
 
 %changelog
+* Mon Jan 27 2002 Benjamin LaHaise <bcrl@redhat.com>
+- bump to 0.3.93-3 for rebuild.
+
 * Mon Dec 16 2002 Benjamin LaHaise <bcrl@redhat.com>
 - libaio 0.3.93 test release
 - add powerpc support from Gianni Tedesco <gianni@ecsc.co.uk>
