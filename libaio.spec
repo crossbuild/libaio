@@ -1,6 +1,6 @@
 Name: libaio
 Version: 0.3.96
-Release: 2
+Release: 3
 Summary: Linux-native asynchronous I/O access library
 Copyright: LGPL
 Group:  System Environment/Libraries
@@ -58,6 +58,9 @@ make install prefix=$RPM_BUILD_ROOT/usr \
 %attr(0644,root,root) %{_libdir}/libaio.a
 
 %changelog
+* Wed Jul  7 2003 Bill Nottingham <notting@redhat.com> 0.3.96-3
+- fix paths on lib64 arches
+
 * Wed Jun 18 2003 Michael K. Johnson <johnsonm@redhat.com> 0.3.96-2
 - optimization in io_getevents from Arjan van de Ven in 0.3.96-1
 - deal with ia64 in 0.3.96-2
