@@ -20,6 +20,8 @@
 #include "syscall-ppc.h"
 #elif defined(__s390__)
 #include "syscall-s390.h"
+#elif defined(__alpha__)
+#include "syscall-alpha.h"
 #else
 #error "add syscall-arch.h"
 #endif
