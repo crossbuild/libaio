@@ -7,7 +7,7 @@ Group:  System Environment/Libraries
 Source: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root
 # Fix ExclusiveArch as we implement this functionality on more architectures
-ExclusiveArch: i386 x86_64 ia64 s390 s390x ppc ppc64 ppc64pseries ppc64iseries
+ExclusiveArch: i386 x86_64 ia64 s390 s390x ppc ppc64 ppc64pseries ppc64iseries alpha alphaev6
 
 %description
 The Linux-native asynchronous I/O facility ("async I/O", or "aio") has a
