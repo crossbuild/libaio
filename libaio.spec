@@ -1,6 +1,6 @@
 Name: libaio
 Version: 0.3.91
-Release: 1
+Release: 2
 Summary: Linux-native asynchronous I/O access library
 Copyright: LGPL
 Group:  System Environment/Libraries
@@ -41,9 +41,6 @@ make install prefix=$RPM_BUILD_ROOT/usr root=$RPM_BUILD_ROOT
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
-# if no libredhat-kernel.so is in place, the stub's version of 1.0.0
-# will link correctly for apps.  This requires that the kernel's 
-# libredhat-kernel.so be 1.0.1 or higher.
 %post -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
@@ -51,8 +48,6 @@ make install prefix=$RPM_BUILD_ROOT/usr root=$RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %attr(0755,root,root) /usr/lib/libaio.so.*
-%attr(0755,root,root) /lib/kernel/stub/*
-%attr(0755,root,root) /lib/libredhat-kernel*
 %doc COPYING TODO
 
 %files devel
@@ -60,9 +55,13 @@ make install prefix=$RPM_BUILD_ROOT/usr root=$RPM_BUILD_ROOT
 %attr(0644,root,root) /usr/include/*
 %attr(0755,root,root) /usr/lib/libaio.so
 %attr(0644,root,root) /usr/lib/libaio.a
-%attr(0755,root,root) /usr/lib/libredhat-kernel.so
 
 %changelog
+* Thu Sep 12 2002 Benjamin LaHaise <bcrl@redhat.com>
+- libaio 0.3.91 test release
+- build on ia64
+- remove libredhat-kernel from the .spec file
+
 * Thu Sep  5 2002 Benjamin LaHaise <bcrl@redhat.com>
 - libaio 0.3.90 test release
 
