@@ -1,6 +1,6 @@
 Name: libaio
-Version: 0.3.91
-Release: 2
+Version: 0.3.92
+Release: 1
 Summary: Linux-native asynchronous I/O access library
 Copyright: LGPL
 Group:  System Environment/Libraries
