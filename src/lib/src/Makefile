@@ -16,7 +16,6 @@ vsysaddr.o: vsysaddr.S
 
 libredhat-kernel.so.1: $(so_objs) libredhat-kernel.map
 	gcc -nostdlib -nostartfiles -shared -Wl,--version-script=libredhat-kernel.map -o $@  $(so_objs)
-	cp $@ $@.save
 	strip $@
 
 libredhat-kernel.so: libredhat-kernel.so.1
