@@ -10,6 +10,8 @@
 #include "syscall-x86_64.h"
 #elif defined(__ia64__)
 #include "syscall-ia64.h"
+#elif defined(__PPC__)
+#include "syscall-ppc.h"
 #else
 #error "add syscall-arch.h"
 #endif

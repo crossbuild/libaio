@@ -5,6 +5,7 @@
 	  pass the timeout for updating as per 2.5
 	- fixes for ia64, now works
 	- fixes for x86-64
+	- powerpc support from Gianni Tedesco <gianni@ecsc.co.uk>
 	- disable the NULL check in harness/cases/4.t on ia64: ia64 
 	  maps the 0 page and causes this check to fail.
 
