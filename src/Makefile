@@ -1,6 +1,8 @@
 prefix=/usr
 
-CFLAGS=-fPIC -nostdlib -nostartfiles -Wall -I. -g -fomit-frame-pointer -O2
+ARCH := $(shell uname -m | sed -e s/i.86/i386/)
+CFLAGS := -nostdlib -nostartfiles -Wall -I. -g -fomit-frame-pointer -O2
+CFLAGS += $(shell if [ "$(ARCH)" != "i386" ] ; then echo -fPIC ; fi)
 SO_CFLAGS=-shared $(CFLAGS)
 L_CFLAGS=$(CFLAGS)
 LINK_FLAGS=
