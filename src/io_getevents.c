@@ -22,7 +22,7 @@
 #include <time.h>
 #include "syscall.h"
 
-io_syscall5(static int, __io_getevents_0_4, io_getevents, io_context_t, ctx, long, min_nr, long, nr, struct io_event *, events, struct timespec *, timeout)
+io_syscall5(int, __io_getevents_0_4, io_getevents, io_context_t, ctx, long, min_nr, long, nr, struct io_event *, events, struct timespec *, timeout)
 
 #define AIO_RING_MAGIC                  0xa10a10a1
 
