@@ -59,7 +59,7 @@ make install prefix=$RPM_BUILD_ROOT/usr \
 %attr(0644,root,root) %{_libdir}/libaio.a
 
 %changelog
-* Tue Jan  3 2005 Jeff Moyer <jmoyer@redhat.com> - 0.3.106-1
+* Tue Jan  3 2006 Jeff Moyer <jmoyer@redhat.com> - 0.3.106-1
 - Add a .proc directive for the ia64_aio_raw_syscall macro.  This sounds a lot
   like the previous entry, but that one fixed the __ia64_raw_syscall macro,
   located in syscall-ia64.h.  This macro is in raw_syscall.c, which pretty much
