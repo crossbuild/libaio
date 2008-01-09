@@ -3,6 +3,7 @@
 */
 #include "aio_setup.h"
 #include <sys/mman.h>
+#include <errno.h>
 
 int test_main(void)
 {
@@ -40,7 +41,13 @@ int test_main(void)
 	assert(buf != (char *)-1);
 
 	status |= attempt_rw(rwfd, buf, SIZE,  0,  READ, SIZE);
-	status |= attempt_rw(rwfd, buf, SIZE,  0, WRITE, -EFAULT);
+
+	/* Whether PROT_WRITE is readable is arch-dependent.  So compare
+	 * against read result. */
+	res = read(rwfd, buf, SIZE);
+	if (res < 0)
+		res = -errno;
+	status |= attempt_rw(rwfd, buf, SIZE,  0, WRITE, res);
 
 	return status;
 }

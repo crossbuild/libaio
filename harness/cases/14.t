@@ -61,11 +61,14 @@ int test_main(void)
 {
 	int res, status;
 	pid_t pid;
+	sigset_t set;
 
 	if (attempt_io_submit(io_ctx, 0, NULL, 0))
 		return 1;
 
-	sigblock(sigmask(SIGCHLD) | siggetmask());
+	sigemptyset(&set);
+	sigaddset(&set, SIGCHLD);
+	sigprocmask(SIG_BLOCK, &set, NULL);
 	fflush(NULL);
 	pid = fork();				assert(pid != -1);
 

@@ -1,3 +1,14 @@
+0.3.107
+	- Make tests compile again on modern systems (warnings + -Werror)
+	- Add 'make partcheck' and don't require manual setup for testing.
+	- Change test harness to compile against this dir, not global install
+	- Fix 5.t for archs where PROT_WRITE mappings are readable.
+	- Allow sending of SIGXFSZ on aio over limits
+	- Explicitly specify bash for runtests.sh
+	- Put deprecating comments on never-merged io_prep_poll
+	- Add io_prep_preadv and io_prep_pwritev
+	- Add eventfd support (io_set_eventfd).
+
 0.4.0
 	- remove libredhat-kernel
 	- add rough outline for man pages

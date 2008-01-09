@@ -33,7 +33,6 @@ extern "C" {
 struct timespec;
 struct sockaddr;
 struct iovec;
-struct iocb;
 
 typedef struct io_context *io_context_t;
 
@@ -44,8 +43,10 @@ typedef enum io_iocb_cmd {
 	IO_CMD_FSYNC = 2,
 	IO_CMD_FDSYNC = 3,
 
-	IO_CMD_POLL = 5,
+	IO_CMD_POLL = 5, /* Never implemented in mainline, see io_prep_poll */
 	IO_CMD_NOOP = 6,
+	IO_CMD_PREADV = 7,
+	IO_CMD_PWRITEV = 8,
 } io_iocb_cmd_t;
 
 #if defined(__i386__) /* little endian, 32 bits */
@@ -89,7 +90,9 @@ struct io_iocb_common {
 	PADDEDptr(void	*buf, __pad1);
 	PADDEDul(nbytes, __pad2);
 	long long	offset;
-	long long	__pad3, __pad4;
+	long long	__pad3;
+	unsigned	flags;
+	unsigned	resfd;
 };	/* result code is the amount read or -'ve errno */
 
 struct io_iocb_vector {
@@ -169,20 +172,44 @@ static inline void io_prep_pwrite(struct iocb *iocb, int fd, void *buf, size_t c
 	iocb->u.c.offset = offset;
 }
 
-static inline void io_prep_poll(struct iocb *iocb, int fd, int events)
+static inline void io_prep_preadv(struct iocb *iocb, int fd, const struct iovec *iov, int iovcnt, long long offset)
 {
 	memset(iocb, 0, sizeof(*iocb));
 	iocb->aio_fildes = fd;
-	iocb->aio_lio_opcode = IO_CMD_POLL;
+	iocb->aio_lio_opcode = IO_CMD_PREADV;
 	iocb->aio_reqprio = 0;
-	iocb->u.poll.events = events;
+	iocb->u.c.buf = (void *)iov;
+	iocb->u.c.nbytes = iovcnt;
+	iocb->u.c.offset = offset;
+}
+
+static inline void io_prep_pwritev(struct iocb *iocb, int fd, const struct iovec *iov, int iovcnt, long long offset)
+{
+	memset(iocb, 0, sizeof(*iocb));
+	iocb->aio_fildes = fd;
+	iocb->aio_lio_opcode = IO_CMD_PWRITEV;
+	iocb->aio_reqprio = 0;
+	iocb->u.c.buf = (void *)iov;
+	iocb->u.c.nbytes = iovcnt;
+	iocb->u.c.offset = offset;
+}
+
+/* Jeff Moyer says this was implemented in Red Hat AS2.1 and RHEL3.
+ * AFAICT, it was never in mainline, and should not be used. --RR */
+static inline void io_prep_poll(struct iocb *iocb, int fd, int events)
+{
+        memset(iocb, 0, sizeof(*iocb));
+        iocb->aio_fildes = fd;
+        iocb->aio_lio_opcode = IO_CMD_POLL;
+        iocb->aio_reqprio = 0;
+        iocb->u.poll.events = events;
 }
 
 static inline int io_poll(io_context_t ctx, struct iocb *iocb, io_callback_t cb, int fd, int events)
 {
-	io_prep_poll(iocb, fd, events);
-	io_set_callback(iocb, cb);
-	return io_submit(ctx, 1, &iocb);
+        io_prep_poll(iocb, fd, events);
+        io_set_callback(iocb, cb);
+        return io_submit(ctx, 1, &iocb);
 }
 
 static inline void io_prep_fsync(struct iocb *iocb, int fd)
@@ -213,6 +240,12 @@ static inline int io_fdsync(io_context_t ctx, struct iocb *iocb, io_callback_t c
 	io_prep_fdsync(iocb, fd);
 	io_set_callback(iocb, cb);
 	return io_submit(ctx, 1, &iocb);
+}
+
+static inline void io_set_eventfd(struct iocb *iocb, int eventfd)
+{
+	iocb->u.c.flags |= (1 << 0) /* IOCB_FLAG_RESFD */;
+	iocb->u.c.resfd = eventfd;
 }
 
 #ifdef __cplusplus

@@ -1,5 +1,5 @@
 Name: libaio
-Version: 0.3.106
+Version: 0.3.107
 Release: 1
 Summary: Linux-native asynchronous I/O access library
 Copyright: LGPL
@@ -59,6 +59,10 @@ make install prefix=$RPM_BUILD_ROOT/usr \
 %attr(0644,root,root) %{_libdir}/libaio.a
 
 %changelog
+* Wed Jan  9 2008 Jeff Moyer <jmoyer@redhat.com> - 0.3.107-1
+- Fix the test harness (Rusty Russell)
+- Add eventfd support (Rusty Russell)
+
 * Tue Jan  3 2006 Jeff Moyer <jmoyer@redhat.com> - 0.3.106-1
 - Add a .proc directive for the ia64_aio_raw_syscall macro.  This sounds a lot
   like the previous entry, but that one fixed the __ia64_raw_syscall macro,

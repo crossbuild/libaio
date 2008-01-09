@@ -17,6 +17,11 @@ all:
 install:
 	@$(MAKE) -C src install prefix=$(prefix) includedir=$(includedir) libdir=$(libdir)
 
+check:
+	@$(MAKE) -C harness check
+
+partcheck: all
+	@$(MAKE) -C harness partcheck
 
 clean:
 	@$(MAKE) -C src clean

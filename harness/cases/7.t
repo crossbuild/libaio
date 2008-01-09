@@ -9,12 +9,15 @@
 */
 
 #include <sys/resource.h>
+#include <signal.h>
 
 void SET_RLIMIT(long long limit)
 {
 	struct rlimit rlim;
 	int res;
 
+	/* Seems that we do send SIGXFSZ, but hard to fix... */
+	signal(SIGXFSZ, SIG_IGN);
 	rlim.rlim_cur = limit;			assert(rlim.rlim_cur == limit);
 	rlim.rlim_max = limit;			assert(rlim.rlim_max == limit);
 

@@ -2,6 +2,7 @@
 */
 #include "aio_setup.h"
 
+#include <errno.h>
 #include <unistd.h>
 
 #define SIZE	512
@@ -13,7 +14,7 @@ int test_main(void)
 	int status = 0, res;
 	long long limit;
 
-	rwfd = open(FILENAME, O_RDWR);		assert(rwfd != -1);
+	rwfd = open(FILENAME, O_RDWR|O_CREAT, 0600);	assert(rwfd != -1);
 	res = ftruncate(rwfd, 0);			assert(res == 0);
 	buf = malloc(SIZE);				assert(buf != NULL);
 	memset(buf, 0, SIZE);

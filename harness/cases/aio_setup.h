@@ -1,3 +1,4 @@
+#include <time.h>
 io_context_t	io_ctx;
 #define BAD_CTX	((io_context_t)-1)
 
@@ -58,6 +59,9 @@ int sync_submit(struct iocb *iocb)
 #define WRITE		'w'
 #define READ_SILENT	'R'
 #define WRITE_SILENT	'W'
+#define READV		'<'
+#define WRITEV		'>'
+
 int attempt_rw(int fd, void *buf, int count, long long pos, int rw, int expect)
 {
 	struct iocb iocb;
@@ -74,6 +78,12 @@ int attempt_rw(int fd, void *buf, int count, long long pos, int rw, int expect)
 		silent = 1;
 	case WRITE:
 		io_prep_pwrite(&iocb, fd, buf, count, pos);
+		break;
+	case WRITEV:
+		io_prep_pwritev(&iocb, fd, buf, count, pos);
+		break;
+	case READV:
+		io_prep_preadv(&iocb, fd, buf, count, pos);
 		break;
 	}
 
