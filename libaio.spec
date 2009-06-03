@@ -2,7 +2,7 @@ Name: libaio
 Version: 0.3.107
 Release: 1
 Summary: Linux-native asynchronous I/O access library
-Copyright: LGPL
+License: LGPL
 Group:  System Environment/Libraries
 Source: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root
