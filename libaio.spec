@@ -1,5 +1,5 @@
 Name: libaio
-Version: 0.3.107
+Version: 0.3.108
 Release: 1
 Summary: Linux-native asynchronous I/O access library
 License: LGPL
@@ -7,7 +7,7 @@ Group:  System Environment/Libraries
 Source: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root
 # Fix ExclusiveArch as we implement this functionality on more architectures
-ExclusiveArch: i386 x86_64 ia64 s390 s390x ppc ppc64 ppc64pseries ppc64iseries alpha alphaev6
+ExclusiveArch: i386 x86_64 ia64 s390 s390x ppc ppc64 ppc64pseries ppc64iseries alpha alphaev6 %{arm}
 
 %description
 The Linux-native asynchronous I/O facility ("async I/O", or "aio") has a
@@ -59,6 +59,11 @@ make install prefix=$RPM_BUILD_ROOT/usr \
 %attr(0644,root,root) %{_libdir}/libaio.a
 
 %changelog
+* Tue Jun  9 2009 Jeff Moyer <jmoyer@redhat.com> - 0.3.108-1
+- add ARM architecture support (grabbed from Debian arches tree)
+- replace check of __i386__ with __LP64__ in test harness (Jeff Moyer)
+- change the .spec's copyright tag to license
+
 * Wed Jan  9 2008 Jeff Moyer <jmoyer@redhat.com> - 0.3.107-1
 - Fix the test harness (Rusty Russell)
 - Add eventfd support (Rusty Russell)

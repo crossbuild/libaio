@@ -22,6 +22,8 @@
 #include "syscall-s390.h"
 #elif defined(__alpha__)
 #include "syscall-alpha.h"
+#elif defined(__arm__)
+#include "syscall-arm.h"
 #else
 #error "add syscall-arch.h"
 #endif
