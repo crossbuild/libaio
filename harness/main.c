@@ -11,11 +11,11 @@
 
 #include <libaio.h>
 
-#if defined(__i386__)
+#if __LP64__ == 0
 #define KERNEL_RW_POINTER	((void *)0xc0010000)
 #else
 //#warning Not really sure where kernel memory is.  Guessing.
-#define KERNEL_RW_POINTER	((void *)0xffffffffc0010000)
+#define KERNEL_RW_POINTER	((void *)0xffffffff81000000)
 #endif
 
 
