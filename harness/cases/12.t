@@ -36,6 +36,10 @@ int test_main(void)
 		test_child();
 
 	res = waitpid(pid, &status, 0);
+	if (res < 0) {
+		printf("waitpid error\n");
+		return res;
+	}
 
 	if (WIFEXITED(status)) {
 		int failed = (WEXITSTATUS(status) != 0);
