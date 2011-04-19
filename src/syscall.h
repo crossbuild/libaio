@@ -24,6 +24,8 @@
 #include "syscall-alpha.h"
 #elif defined(__arm__)
 #include "syscall-arm.h"
+#elif defined(__sparc__)
+#include "syscall-sparc.h"
 #else
 #error "add syscall-arch.h"
 #endif
