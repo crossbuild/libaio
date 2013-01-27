@@ -29,5 +29,6 @@
 #elif defined(__aarch64__)
 #include "syscall-arm64.h"
 #else
-#error "add syscall-arch.h"
+#warning "using generic syscall method"
+#include "syscall-generic.h"
 #endif
