@@ -2,11 +2,12 @@ prefix=/usr
 includedir=$(prefix)/include
 libdir=$(prefix)/lib
 
-ARCH := $(shell uname -m | sed -e s/i.86/i386/)
-CFLAGS := -nostdlib -nostartfiles -Wall -I. -g -fomit-frame-pointer -O2 -fPIC
+CFLAGS ?= -g -fomit-frame-pointer -O2
+CFLAGS += -nostdlib -nostartfiles -Wall -I. -fPIC
 SO_CFLAGS=-shared $(CFLAGS)
 L_CFLAGS=$(CFLAGS)
 LINK_FLAGS=
+LINK_FLAGS+=$(LDFLAGS)
 
 soname=libaio.so.1
 minor=0
