@@ -91,6 +91,16 @@ typedef enum io_iocb_cmd {
 #define PADDED(x, y)    unsigned y; x
 #define PADDEDptr(x, y) unsigned y; x
 #define PADDEDul(x, y)  unsigned y; unsigned long x
+#elif defined(__aarch64__)
+#  if defined (__AARCH64EB__) /* big endian, 64 bits */
+#define PADDED(x, y)    unsigned y; x
+#define PADDEDptr(x,y)  x
+#define PADDEDul(x, y)  unsigned long x
+#  elif defined(__AARCH64EL__) /* little endian, 64 bits */
+#define PADDED(x, y)    x, y
+#define PADDEDptr(x, y) x
+#define PADDEDul(x, y)  unsigned long x
+#  endif
 #else
 #error	endian?
 #endif
