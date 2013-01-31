@@ -6,7 +6,7 @@ PROGS:=$(PARTPROGS) $(EXTRAPROGS)
 HARNESS_SRCS:=main.c
 # io_queue.c
 
-CFLAGS=-Wall -Werror -I../src -g -O
+CFLAGS+=-Wall -Werror -I../src -g -O
 #-lpthread -lrt
 
 all: $(PROGS)
