@@ -18,6 +18,12 @@
 #define SYS_eventfd 318
 #elif defined(__alpha__)
 #define SYS_eventfd 478
+#elif defined(__aarch64__)
+/* arm64 does not implement eventfd, only eventfd2 */
+#define USE_EVENTFD2
+#ifndef SYS_eventfd2
+#define SYS_eventfd2 19
+#endif /* __aarch64__ */
 #else
 #error define SYS_eventfd for your arch!
 #endif
@@ -39,7 +45,11 @@ int test_main(void)
 	struct timespec	notime = { .tv_sec = 0, .tv_nsec = 0 };
 
 	buf = malloc(SIZE);				assert(buf);
+#ifndef USE_EVENTFD2
 	efd = syscall(SYS_eventfd, 0);
+#else
+	efd = syscall(SYS_eventfd2, 0, 0);
+#endif
 	if (efd < 0) {
 		if (errno == ENOSYS) {
 			printf("No eventfd support.  [SKIPPING]\n");
