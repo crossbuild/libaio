@@ -49,58 +49,35 @@ typedef enum io_iocb_cmd {
 	IO_CMD_PWRITEV = 8,
 } io_iocb_cmd_t;
 
-#if defined(__i386__) /* little endian, 32 bits */
+/* little endian, 32 bits */
+#if defined(__i386__) || (defined(__arm__) && !defined(__ARMEB__))
 #define PADDED(x, y)	x; unsigned y
 #define PADDEDptr(x, y)	x; unsigned y
 #define PADDEDul(x, y)	unsigned long x; unsigned y
-#elif defined(__ia64__) || defined(__x86_64__) || defined(__alpha__)
+
+/* little endian, 64 bits */
+#elif defined(__ia64__) || defined(__x86_64__) || defined(__alpha__) || \
+      (defined(__aarch64__) && defined(__AARCH64EL__))
 #define PADDED(x, y)	x, y
 #define PADDEDptr(x, y)	x
 #define PADDEDul(x, y)	unsigned long x
-#elif defined(__powerpc64__) /* big endian, 64 bits */
+
+/* big endian, 64 bits */
+#elif defined(__powerpc64__) || defined(__s390x__) || \
+      (defined(__sparc__) && defined(__arch64__)) || \
+      (defined(__aarch64__) && defined(__AARCH64EB__))
 #define PADDED(x, y)	unsigned y; x
 #define PADDEDptr(x,y)	x
 #define PADDEDul(x, y)	unsigned long x
-#elif defined(__PPC__)  /* big endian, 32 bits */
+
+/* big endian, 32 bits */
+#elif defined(__PPC__) || defined(__s390__) || \
+      (defined(__arm__) && defined(__ARMEB__)) || \
+      defined(__sparc__)
 #define PADDED(x, y)	unsigned y; x
 #define PADDEDptr(x, y)	unsigned y; x
 #define PADDEDul(x, y)	unsigned y; unsigned long x
-#elif defined(__s390x__) /* big endian, 64 bits */
-#define PADDED(x, y)	unsigned y; x
-#define PADDEDptr(x,y)	x
-#define PADDEDul(x, y)	unsigned long x
-#elif defined(__s390__) /* big endian, 32 bits */
-#define PADDED(x, y)	unsigned y; x
-#define PADDEDptr(x, y) unsigned y; x
-#define PADDEDul(x, y)	unsigned y; unsigned long x
-#elif defined(__arm__)
-#  if defined (__ARMEB__) /* big endian, 32 bits */
-#define PADDED(x, y)	unsigned y; x
-#define PADDEDptr(x, y)	unsigned y; x
-#define PADDEDul(x, y)	unsigned y; unsigned long x
-#  else                   /* little endian, 32 bits */
-#define PADDED(x, y)	x; unsigned y
-#define PADDEDptr(x, y)	x; unsigned y
-#define PADDEDul(x, y)	unsigned long x; unsigned y
-#  endif
-#elif defined(__sparc__) && defined(__arch64__) /* big endian, 64 bits */
-#define PADDED(x, y)    unsigned y; x
-#define PADDEDptr(x,y)  x
-#define PADDEDul(x, y)  unsigned long x
-#elif defined(__sparc__)  /* big endian, 32 bits */
-#define PADDED(x, y)    unsigned y; x
-#define PADDEDptr(x, y) unsigned y; x
-#define PADDEDul(x, y)  unsigned y; unsigned long x
-#elif defined(__aarch64__)
-#  if defined (__AARCH64EB__) /* big endian, 64 bits */
-#define PADDED(x, y)    unsigned y; x
-#define PADDEDptr(x,y)  x
-#define PADDEDul(x, y)  unsigned long x
-#  elif defined(__AARCH64EL__) /* little endian, 64 bits */
-#define PADDED(x, y)    x, y
-#define PADDEDptr(x, y) x
-#define PADDEDul(x, y)  unsigned long x
-#  endif
+
 #else
 #error	endian?
 #endif
