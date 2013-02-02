@@ -50,7 +50,9 @@ typedef enum io_iocb_cmd {
 } io_iocb_cmd_t;
 
 /* little endian, 32 bits */
-#if defined(__i386__) || (defined(__arm__) && !defined(__ARMEB__))
+#if defined(__i386__) || (defined(__arm__) && !defined(__ARMEB__)) || \
+    defined(__sh__) || defined(__bfin__) || defined(__MIPSEL__) || \
+    defined(__cris__)
 #define PADDED(x, y)	x; unsigned y
 #define PADDEDptr(x, y)	x; unsigned y
 #define PADDEDul(x, y)	unsigned long x; unsigned y
@@ -73,7 +75,8 @@ typedef enum io_iocb_cmd {
 /* big endian, 32 bits */
 #elif defined(__PPC__) || defined(__s390__) || \
       (defined(__arm__) && defined(__ARMEB__)) || \
-      defined(__sparc__)
+      defined(__sparc__) || defined(__MIPSEB__) || defined(__m68k__) || \
+      defined(__hppa__) || defined(__frv__) || defined(__avr32__)
 #define PADDED(x, y)	unsigned y; x
 #define PADDEDptr(x, y)	unsigned y; x
 #define PADDEDul(x, y)	unsigned y; unsigned long x
