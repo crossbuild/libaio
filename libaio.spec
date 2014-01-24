@@ -1,5 +1,5 @@
 Name: libaio
-Version: 0.3.108
+Version: 0.3.110
 Release: 1
 Summary: Linux-native asynchronous I/O access library
 License: LGPL
@@ -59,6 +59,12 @@ make install prefix=$RPM_BUILD_ROOT/usr \
 %attr(0644,root,root) %{_libdir}/libaio.a
 
 %changelog
+* Fri Jul  5 2013 Jeff Moyer <jmoyer@redhat.com> - 0.3.110-1
+- Add suport for sparc and arm64 (Mike Frysinger and Jeff Moyer)
+- Add generic syscall fallbacks (Mike Frysinger)
+- Update man pages (Jeff Moyer and Cyril Hrubis)
+- Build system fixes (Mike Frysinger)
+
 * Tue Jun  9 2009 Jeff Moyer <jmoyer@redhat.com> - 0.3.108-1
 - add ARM architecture support (grabbed from Debian arches tree)
 - replace check of __i386__ with __LP64__ in test harness (Jeff Moyer)
