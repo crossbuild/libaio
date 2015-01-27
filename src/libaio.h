@@ -52,14 +52,18 @@ typedef enum io_iocb_cmd {
 /* little endian, 32 bits */
 #if defined(__i386__) || (defined(__arm__) && !defined(__ARMEB__)) || \
     defined(__sh__) || defined(__bfin__) || defined(__MIPSEL__) || \
-    defined(__cris__)
+    defined(__cris__) || \
+    (defined(__GNUC__) && defined(__BYTE_ORDER__) && \
+         __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__ && __SIZEOF_LONG__ == 4)
 #define PADDED(x, y)	x; unsigned y
 #define PADDEDptr(x, y)	x; unsigned y
 #define PADDEDul(x, y)	unsigned long x; unsigned y
 
 /* little endian, 64 bits */
 #elif defined(__ia64__) || defined(__x86_64__) || defined(__alpha__) || \
-      (defined(__aarch64__) && defined(__AARCH64EL__))
+      (defined(__aarch64__) && defined(__AARCH64EL__)) || \
+      (defined(__GNUC__) && defined(__BYTE_ORDER__) && \
+          __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__ && __SIZEOF_LONG__ == 8)
 #define PADDED(x, y)	x, y
 #define PADDEDptr(x, y)	x
 #define PADDEDul(x, y)	unsigned long x
@@ -67,7 +71,9 @@ typedef enum io_iocb_cmd {
 /* big endian, 64 bits */
 #elif defined(__powerpc64__) || defined(__s390x__) || \
       (defined(__sparc__) && defined(__arch64__)) || \
-      (defined(__aarch64__) && defined(__AARCH64EB__))
+      (defined(__aarch64__) && defined(__AARCH64EB__)) || \
+      (defined(__GNUC__) && defined(__BYTE_ORDER__) && \
+           __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__ && __SIZEOF_LONG__ == 8)
 #define PADDED(x, y)	unsigned y; x
 #define PADDEDptr(x,y)	x
 #define PADDEDul(x, y)	unsigned long x
@@ -76,7 +82,9 @@ typedef enum io_iocb_cmd {
 #elif defined(__PPC__) || defined(__s390__) || \
       (defined(__arm__) && defined(__ARMEB__)) || \
       defined(__sparc__) || defined(__MIPSEB__) || defined(__m68k__) || \
-      defined(__hppa__) || defined(__frv__) || defined(__avr32__)
+      defined(__hppa__) || defined(__frv__) || defined(__avr32__) || \
+      (defined(__GNUC__) && defined(__BYTE_ORDER__) && \
+           __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__ && __SIZEOF_LONG__ == 4)
 #define PADDED(x, y)	unsigned y; x
 #define PADDEDptr(x, y)	unsigned y; x
 #define PADDEDul(x, y)	unsigned y; unsigned long x
