@@ -6,7 +6,7 @@ PROGS:=$(PARTPROGS) $(EXTRAPROGS)
 HARNESS_SRCS:=main.c
 # io_queue.c
 
-CFLAGS+=-Wall -Werror -I../src -g -O -lpthread
+CFLAGS+=-Wall -Werror -I../src -g -O2 -lpthread -DPAGE_SIZE=$(shell getconf PAGESIZE)
 #-lpthread -lrt
 
 all: $(PROGS)

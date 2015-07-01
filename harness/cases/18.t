@@ -34,8 +34,6 @@
 #include <libaio.h>
 #include <stdbool.h>
 
-#define PAGE_SIZE 4096
-
 #define FILENAME "tempfile"
 #define FILEPATTERN '1'
 #define DESTROY_PATTERN '2'
